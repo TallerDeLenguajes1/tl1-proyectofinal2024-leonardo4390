@@ -1,5 +1,10 @@
 using System;
-
+enum TipoPersonaje
+{
+    Guerrero,
+    Mago,
+    Arquero
+}
 class Personaje
 {
     public Datos Datos{get;set;}
