@@ -3,7 +3,12 @@ enum TipoPersonaje
 {
     Guerrero,
     Mago,
-    Arquero
+    Arquero,
+    Asesino,
+    Nigromante,
+    Barbaro,
+    Hechicero,
+    Bruja
 }
 class Personaje
 {

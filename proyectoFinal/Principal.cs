@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 class Principal
 {
@@ -7,6 +10,7 @@ class Principal
     {
         TipoPersonaje tipoElegido;
         FabricaDePersonajes fabrica = new FabricaDePersonajes();
+        PersonajeJson personajeJson = new PersonajeJson();
 
         while (true)
         {
@@ -18,7 +22,7 @@ class Principal
 
             string entrada = Console.ReadLine().Trim();
 
-            // Verificacion para lo que se espera del menu de personajes
+            // Verificacion para lo que se espera para personaje
             if (!int.TryParse(entrada, out _))
             {
                 if (Enum.TryParse(entrada, true, out tipoElegido))
@@ -33,7 +37,7 @@ class Principal
             Console.WriteLine("Ingreso incorrecto, ingrese otra vez");
         }
         //personaje aleatorio a combatir
-        TipoPersonaje tipoAleatorio = (TipoPersonaje)new Random().Next(0, 3);
+        TipoPersonaje tipoAleatorio = (TipoPersonaje)new Random().Next(0, 8);
         //intanciando personajes del usuario y el aleatorio 
         Personaje personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
         Personaje personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
@@ -43,7 +47,7 @@ class Principal
         Console.WriteLine($"Tipo: {tipoElegido}");
         Console.WriteLine($"Nombre: {personajeUsuario.Datos.Nombre}");
         Console.WriteLine($"Apodo: {personajeUsuario.Datos.Apodo}");
-        Console.WriteLine($"Fecha de Nacimiento: {personajeUsuario.Datos.FechaDeNacimiento}");
+        Console.WriteLine($"Fecha de Nacimiento: {personajeUsuario.Datos.FechaDeNacimiento} a.E.C");
         Console.WriteLine($"Edad: {personajeUsuario.Datos.Edad}");
 
         Console.WriteLine("\nCaracterísticas del personaje usuario:");
@@ -58,7 +62,7 @@ class Principal
         Console.WriteLine($"Tipo: {tipoAleatorio}");
         Console.WriteLine($"Nombre: {personajeAleatorio.Datos.Nombre}");
         Console.WriteLine($"Apodo: {personajeAleatorio.Datos.Apodo}");
-        Console.WriteLine($"Fecha de Nacimiento: {personajeAleatorio.Datos.FechaDeNacimiento}");
+        Console.WriteLine($"Fecha de Nacimiento: {personajeAleatorio.Datos.FechaDeNacimiento} a.E.C");
         Console.WriteLine($"Edad: {personajeAleatorio.Datos.Edad}");
 
         Console.WriteLine("\nCaracterísticas del personaje  aleatorio:");
@@ -68,5 +72,17 @@ class Principal
         Console.WriteLine($"Nivel: {personajeAleatorio.Caracteristicas.Nivel}");
         Console.WriteLine($"Armadura: {personajeAleatorio.Caracteristicas.Armadura}");
         Console.WriteLine($"Salud: {personajeAleatorio.Caracteristicas.Salud}");
+
+        //guardando personajes
+        List<Personaje> personajesExistentes = personajeJson.LeerPersonajes("personajes.json");
+
+        if (personajesExistentes == null)
+        {
+            personajesExistentes = new List<Personaje>();
+        }
+        
+        personajesExistentes.Add(personajeUsuario);
+        personajesExistentes.Add(personajeAleatorio);
+        personajeJson.GuardarPersonajes(personajesExistentes,"personajes.json");
     }
 }
