@@ -1,1 +1,138 @@
-[{"Datos":{"Tipo":"Mago","Nombre":"Pyrus","Apodo":"El Ardiente Sabio","FechaDeNacimiento":"24 de enero de 1485","Edad":280},"Caracteristicas":{"Velocidad":10,"Destreza":2,"Fuerza":8,"Nivel":4,"Armadura":8,"Salud":100}},{"Datos":{"Tipo":"Nigromante","Nombre":"Nekros","Apodo":"El Amo de la oscuridad","FechaDeNacimiento":"15 de febrero de 753","Edad":133},"Caracteristicas":{"Velocidad":7,"Destreza":5,"Fuerza":4,"Nivel":2,"Armadura":3,"Salud":100}},{"Datos":{"Tipo":"Arquero","Nombre":"Hydron","Apodo":"El Preciso Humedo","FechaDeNacimiento":"29 de marzo de 1093","Edad":119},"Caracteristicas":{"Velocidad":3,"Destreza":10,"Fuerza":7,"Nivel":1,"Armadura":5,"Salud":100}},{"Datos":{"Tipo":"Bruja","Nombre":"Morgana","Apodo":"La Reina del Rayo","FechaDeNacimiento":"3 de junio de 1026","Edad":265},"Caracteristicas":{"Velocidad":1,"Destreza":2,"Fuerza":3,"Nivel":4,"Armadura":9,"Salud":100}}]
+[
+  {
+    "Tipo": "Mago",
+    "Datos": {
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "2 de noviembre de 187",
+      "Edad": 143
+    },
+    "Caracteristicas": {
+      "Velocidad": 6,
+      "Destreza": 9,
+      "Fuerza": 1,
+      "Nivel": 3,
+      "Armadura": 7,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Mago",
+    "Datos": {
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "13 de julio de 1296",
+      "Edad": 177
+    },
+    "Caracteristicas": {
+      "Velocidad": 1,
+      "Destreza": 7,
+      "Fuerza": 9,
+      "Nivel": 7,
+      "Armadura": 2,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Mago",
+    "Datos": {
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "2 de noviembre de 187",
+      "Edad": 143
+    },
+    "Caracteristicas": {
+      "Velocidad": 6,
+      "Destreza": 9,
+      "Fuerza": 1,
+      "Nivel": 3,
+      "Armadura": 7,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Guerrero",
+    "Datos": {
+      "Nombre": "Durandal",
+      "Apodo": "El Se\u00F1or del Viento",
+      "FechaDeNacimiento": "25 de abril de 1355",
+      "Edad": 47
+    },
+    "Caracteristicas": {
+      "Velocidad": 9,
+      "Destreza": 4,
+      "Fuerza": 7,
+      "Nivel": 1,
+      "Armadura": 9,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Mago",
+    "Datos": {
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "2 de noviembre de 187",
+      "Edad": 143
+    },
+    "Caracteristicas": {
+      "Velocidad": 6,
+      "Destreza": 9,
+      "Fuerza": 1,
+      "Nivel": 3,
+      "Armadura": 7,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Mago",
+    "Datos": {
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "2 de noviembre de 187",
+      "Edad": 143
+    },
+    "Caracteristicas": {
+      "Velocidad": 6,
+      "Destreza": 9,
+      "Fuerza": 1,
+      "Nivel": 3,
+      "Armadura": 7,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Arquero",
+    "Datos": {
+      "Nombre": "Hydron",
+      "Apodo": "El Preciso Humedo",
+      "FechaDeNacimiento": "13 de mayo de 1144",
+      "Edad": 90
+    },
+    "Caracteristicas": {
+      "Velocidad": 7,
+      "Destreza": 2,
+      "Fuerza": 2,
+      "Nivel": 6,
+      "Armadura": 6,
+      "Salud": 100
+    }
+  },
+  {
+    "Tipo": "Barbaro",
+    "Datos": {
+      "Nombre": "Grom",
+      "Apodo": "El se\u00F1or de la Tormenta",
+      "FechaDeNacimiento": "18 de julio de 335",
+      "Edad": 18
+    },
+    "Caracteristicas": {
+      "Velocidad": 4,
+      "Destreza": 3,
+      "Fuerza": 6,
+      "Nivel": 4,
+      "Armadura": 2,
+      "Salud": 100
+    }
+  }
+]

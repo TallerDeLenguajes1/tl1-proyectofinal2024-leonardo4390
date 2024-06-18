@@ -36,53 +36,61 @@ class Principal
 
             Console.WriteLine("Ingreso incorrecto, ingrese otra vez");
         }
+        // Verificar si el usuario ya existe
+        
+
+        
         //personaje aleatorio a combatir
-        TipoPersonaje tipoAleatorio = (TipoPersonaje)new Random().Next(0, 8);
+        //TipoPersonaje tipoAleatorio = (TipoPersonaje)new Random().Next(0, 8);
         //intanciando personajes del usuario y el aleatorio 
-        Personaje personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
-        Personaje personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
-
-        //mostrando personajes a combatir
-        Console.WriteLine("\nDatos del personaje usuario:");
-        Console.WriteLine($"Tipo: {tipoElegido}");
-        Console.WriteLine($"Nombre: {personajeUsuario.Datos.Nombre}");
-        Console.WriteLine($"Apodo: {personajeUsuario.Datos.Apodo}");
-        Console.WriteLine($"Fecha de Nacimiento: {personajeUsuario.Datos.FechaDeNacimiento} a.E.C");
-        Console.WriteLine($"Edad: {personajeUsuario.Datos.Edad}");
-
-        Console.WriteLine("\nCaracterísticas del personaje usuario:");
-        Console.WriteLine($"Velocidad: {personajeUsuario.Caracteristicas.Velocidad}");
-        Console.WriteLine($"Destreza: {personajeUsuario.Caracteristicas.Destreza}");
-        Console.WriteLine($"Fuerza: {personajeUsuario.Caracteristicas.Fuerza}");
-        Console.WriteLine($"Nivel: {personajeUsuario.Caracteristicas.Nivel}");
-        Console.WriteLine($"Armadura: {personajeUsuario.Caracteristicas.Armadura}");
-        Console.WriteLine($"Salud: {personajeUsuario.Caracteristicas.Salud}");
-
-        Console.WriteLine("\nDatos del personaje aleatorio:");
-        Console.WriteLine($"Tipo: {tipoAleatorio}");
-        Console.WriteLine($"Nombre: {personajeAleatorio.Datos.Nombre}");
-        Console.WriteLine($"Apodo: {personajeAleatorio.Datos.Apodo}");
-        Console.WriteLine($"Fecha de Nacimiento: {personajeAleatorio.Datos.FechaDeNacimiento} a.E.C");
-        Console.WriteLine($"Edad: {personajeAleatorio.Datos.Edad}");
-
-        Console.WriteLine("\nCaracterísticas del personaje  aleatorio:");
-        Console.WriteLine($"Velocidad: {personajeAleatorio.Caracteristicas.Velocidad}");
-        Console.WriteLine($"Destreza: {personajeAleatorio.Caracteristicas.Destreza}");
-        Console.WriteLine($"Fuerza: {personajeAleatorio.Caracteristicas.Fuerza}");
-        Console.WriteLine($"Nivel: {personajeAleatorio.Caracteristicas.Nivel}");
-        Console.WriteLine($"Armadura: {personajeAleatorio.Caracteristicas.Armadura}");
-        Console.WriteLine($"Salud: {personajeAleatorio.Caracteristicas.Salud}");
-
-        //guardando personajes
+        //Personaje personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
+        //Personaje personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
         List<Personaje> personajesExistentes = personajeJson.LeerPersonajes("personajes.json");
 
-        if (personajesExistentes == null)
+        Personaje personajeUsuario = personajesExistentes?.Find(p => p.Tipo == tipoElegido) ?? fabrica.GenerarPersonajeAleatorio(tipoElegido);
+
+        Random random = new Random();
+        TipoPersonaje tipoAleatorio;
+        Personaje personajeAleatorio;
+
+        do
         {
-            personajesExistentes = new List<Personaje>();
+            tipoAleatorio = (TipoPersonaje)random.Next(Enum.GetValues(typeof(TipoPersonaje)).Length);
+            personajeAleatorio = personajesExistentes?.Find(p => p.Tipo == tipoAleatorio) ?? fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
+        } while (personajeAleatorio == null);
+
+        //mostrando personajes a combatir
+        MostrarDatosPersonaje("usuario", personajeUsuario, tipoElegido);
+        MostrarDatosPersonaje("aleatorio", personajeAleatorio, tipoAleatorio);
+
+        // Verificar existencia y agregar personajes
+        if (personajeJson.Existe("personajes.json"))
+        {
+            personajeJson.AgregarPersonajes(new List<Personaje> { personajeUsuario, personajeAleatorio }, "personajes.json");
         }
-        
-        personajesExistentes.Add(personajeUsuario);
-        personajesExistentes.Add(personajeAleatorio);
-        personajeJson.GuardarPersonajes(personajesExistentes,"personajes.json");
+        else
+        {
+            personajeJson.GuardarPersonajes(new List<Personaje> { personajeUsuario, personajeAleatorio }, "personajes.json");
+        }
+    }
+
+    private void MostrarDatosPersonaje(string tipo, Personaje personaje, TipoPersonaje tipoPersonaje)
+    {
+        Console.WriteLine($"\nDatos del personaje {tipo}:");
+        Console.WriteLine($"Tipo: {tipoPersonaje}");
+        Console.WriteLine($"Nombre: {personaje.Datos.Nombre}");
+        Console.WriteLine($"Apodo: {personaje.Datos.Apodo}");
+        Console.WriteLine($"Fecha de Nacimiento: {personaje.Datos.FechaDeNacimiento} a.E.C");
+        Console.WriteLine($"Edad: {personaje.Datos.Edad}");
+
+        Console.WriteLine($"\nCaracterísticas del personaje {tipo}:");
+        Console.WriteLine($"Velocidad: {personaje.Caracteristicas.Velocidad}");
+        Console.WriteLine($"Destreza: {personaje.Caracteristicas.Destreza}");
+        Console.WriteLine($"Fuerza: {personaje.Caracteristicas.Fuerza}");
+        Console.WriteLine($"Nivel: {personaje.Caracteristicas.Nivel}");
+        Console.WriteLine($"Armadura: {personaje.Caracteristicas.Armadura}");
+        Console.WriteLine($"Salud: {personaje.Caracteristicas.Salud}");
     }
 }
+
+

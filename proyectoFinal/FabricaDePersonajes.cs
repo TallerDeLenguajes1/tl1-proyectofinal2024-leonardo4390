@@ -77,7 +77,6 @@ class FabricaDePersonajes
         //datos del personaje
         Datos datos = new Datos
         {
-            Tipo = tipo.ToString(),
             Nombre = nombre,
             Apodo = apodo,
             FechaDeNacimiento = fechaFormateda,
@@ -86,8 +85,8 @@ class FabricaDePersonajes
 
         //caracteristicas del personaje
         Caracteristicas caracteristicas = new Caracteristicas();
-        if (tipo == TipoPersonaje.Arquero || tipo == TipoPersonaje.Guerrero || tipo == TipoPersonaje.Mago || tipo == TipoPersonaje.Asesino
-        || tipo == TipoPersonaje.Barbaro || tipo == TipoPersonaje.Bruja || tipo == TipoPersonaje.Hechicero || tipo == TipoPersonaje.Nigromante)
+        //if (tipo == TipoPersonaje.Arquero || tipo == TipoPersonaje.Guerrero || tipo == TipoPersonaje.Mago || tipo == TipoPersonaje.Asesino
+        //|| tipo == TipoPersonaje.Barbaro || tipo == TipoPersonaje.Bruja || tipo == TipoPersonaje.Hechicero || tipo == TipoPersonaje.Nigromante)
         {
             caracteristicas.Velocidad = random.Next(1, 11);
             caracteristicas.Destreza = random.Next(1, 11);
@@ -100,7 +99,6 @@ class FabricaDePersonajes
           
 
         // creando una instancia del personajes con sus datos
-        Personaje personaje = new Personaje(datos, caracteristicas);
-        return personaje;
+        return new Personaje(tipo, datos, caracteristicas);
     }
 }
