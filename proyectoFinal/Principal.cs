@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class Principal
 {
-    private string url = "https://api.openweathermap.org/data/2.5/weather?q=palpala&appid=ae4b960965d0cece848194ecb3e1582b";
+    private string url = "TU_URL";
 
     public async Task Menu()
     {
@@ -18,9 +18,14 @@ class Principal
         while (true)
         {
             Console.WriteLine("\nElige un personaje:\n");
-            Console.WriteLine("*Guerrero");
-            Console.WriteLine("*Mago");
-            Console.WriteLine("*Arquero");
+            Console.WriteLine("* Guerrero");
+            Console.WriteLine("* Mago");
+            Console.WriteLine("* Arquero");
+            Console.WriteLine("* Asesino");
+            Console.WriteLine("* Nigromante");
+            Console.WriteLine("* Barbaro");
+            Console.WriteLine("* Hechicero");
+            Console.WriteLine("* Bruja");
             Console.WriteLine();
 
             string entrada = Console.ReadLine().Trim();
@@ -101,11 +106,54 @@ class Principal
             personajeJson.AgregarPersonajes(new List<Personaje> { personajeAleatorio }, "personajes.json");
         }
 
+        //generando combate
+        Console.WriteLine("\nComienza el combate!");
+        Thread.Sleep(3000);
+
+        while (personajeUsuario.Caracteristicas.Salud > 0 && personajeAleatorio.Caracteristicas.Salud > 0)
+        {
+            int danioGuerrero1 = CalcularDanio(personajeUsuario,personajeAleatorio);
+            personajeAleatorio.Caracteristicas.Salud -= danioGuerrero1;
+
+            Console.WriteLine($"{personajeUsuario.Datos.Nombre} ataca a {personajeAleatorio.Datos.Nombre} y le inflige {danioGuerrero1} puntos de daño.");
+
+            if (personajeAleatorio.Caracteristicas.Salud <= 0)
+            {
+                Console.WriteLine("\n---------------------------------\n");
+                Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
+                Console.WriteLine($"{personajeUsuario.Datos.Nombre} es el ganador!");
+
+                //string informacionPartida = $"Tipo del oponente: {tipoAleatorio}, Danio infligido: {danioGuerrero1}";
+                //historialJson.GuardarGanador(new List<Personaje> { personajeUsuario}, "HistorialJson.json");
+                //historialJson.GuardarGanador(personajeUsuario, informacionPartida, "historial.json");
+                break;
+            }
+
+            int danioGuerrero2 = CalcularDanio(personajeAleatorio,personajeUsuario);
+            personajeUsuario.Caracteristicas.Salud -= danioGuerrero2;
+
+            Console.WriteLine($"{personajeAleatorio.Datos.Nombre} ataca a {personajeUsuario.Datos.Nombre} y le inflige {danioGuerrero2} puntos de daño.");
+
+            if (personajeUsuario.Caracteristicas.Salud <= 0)
+            {
+                Console.WriteLine("\n-------------------------------\n");
+                Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
+                Console.WriteLine($"{personajeAleatorio.Datos.Nombre} es el ganador!");
+
+                //string informacionPartida = $"Tipo del oponente: {tipoElegido}, Danio infligido: {danioGuerrero2}";
+                //historialJson.GuardarGanador(new List<Personaje> { personajeAleatorio}, "HistorialJson.json");
+                //historialJson.GuardarGanador(personajeAleatorio, informacionPartida, "historial.json");
+            break;
+        }
+    }
+
 
         // Obtener el estado del tiempo
         Clima clima = await climaAPI.ObtenerEstadoTiempo(url);
         if (clima != null && clima.weather != null && clima.weather.Length > 0)
         {
+            string estadoDelClima = TraducirEstadoDelClima(clima.weather[0].main);
+            Console.WriteLine($"El estado del tiempo es: {estadoDelClima}");
             Console.WriteLine($"El clima actual es: {clima.weather[0].main}");
             Console.WriteLine($"La hora del amanecer es: {clima.sys.sunrise}");
             Console.WriteLine($"La puesta del sol es: {clima.sys.sunset}");
@@ -132,38 +180,45 @@ class Principal
         
     }
 
-    /*    private string TraducirEstadoDelClima(string estadoEnIngles)
-{
-    Dictionary<string, string> traducciones = new Dictionary<string, string>
+    private string TraducirEstadoDelClima(string climaIngles)
     {
-        {"Thunderstorm", "Tormenta"},
-        {"Drizzle", "Llovizna"},
-        {"Rain", "Lluvia"},
-        {"Snow", "Nieve"},
-        {"Mist", "Niebla"},
-        {"Smoke", "Humo"},
-        {"Haze", "Neblina"},
-        {"Fog", "Niebla"},
-        {"Sand", "Arena"},
-        {"Dust", "Ventoso"},
-        {"Ash", "Ceniza"},
-        {"Squall", "Chubasco"},
-        {"Tornado", "Tornado"},
-        {"Clear", "Despejado"},
-        {"Clouds", "Nublado"}
-        // Puedes agregar más traducciones según tus necesidades
-    };
-
-    if (traducciones.ContainsKey(estadoEnIngles))
-    {
-        return traducciones[estadoEnIngles];
+        Dictionary<string, string> traducciones = new Dictionary<string, string>
+        {
+            {"Thunderstorm", "Tormenta"},
+            {"Drizzle", "Llovizna"},
+            {"Rain", "Lluvia"},
+            {"Snow", "Nieve"},
+            {"Mist", "Niebla"},
+            {"Smoke", "Humo"},
+            {"Haze", "Neblina"},
+            {"Fog", "Niebla"},
+            {"Sand", "Arena"},
+            {"Dust", "Ventoso"},
+            {"Ash", "Ceniza"},
+            {"Squall", "Chubasco"},
+            {"Tornado", "Tornado"},
+            {"Clear", "Despejado"},
+            {"Clouds", "Nublado"}
+        };
+        //traduciendo, cambiando clave por valor
+        if (traducciones.ContainsKey(climaIngles))
+        {
+            return traducciones[climaIngles];
+        }
+        else
+        {
+            return climaIngles;
+        }
     }
-    else
+    public int CalcularDanio(Personaje guerreroAtacante, Personaje guerreroDefensor)
     {
-        // Si no hay una traducción disponible, devolver el estado en inglés
-        return estadoEnIngles;
+        Random random = new Random();
+        int ataque = guerreroAtacante.Caracteristicas.Destreza * guerreroAtacante.Caracteristicas.Fuerza * guerreroAtacante.Caracteristicas.Nivel;
+        int efectividad = random.Next(1, 101);
+        int defensa = guerreroDefensor.Caracteristicas.Armadura * guerreroDefensor.Caracteristicas.Velocidad;
+        int constante = 500;
+        int danioProvocado = ((ataque * efectividad) - defensa) / constante;
+        return danioProvocado;
     }
-}
-    */
 }
 

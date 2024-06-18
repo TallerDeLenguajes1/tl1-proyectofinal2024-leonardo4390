@@ -100,5 +100,22 @@
       "Armadura": 4,
       "Salud": 100
     }
+  },
+  {
+    "Datos": {
+      "Tipo": "Guerrero",
+      "Nombre": "Durandal",
+      "Apodo": "El Se\u00F1or del Viento",
+      "FechaDeNacimiento": "16 de mayo de 836",
+      "Edad": 34
+    },
+    "Caracteristicas": {
+      "Velocidad": 8,
+      "Destreza": 9,
+      "Fuerza": 2,
+      "Nivel": 4,
+      "Armadura": 1,
+      "Salud": 100
+    }
   }
 ]
