@@ -77,6 +77,7 @@ class FabricaDePersonajes
         //datos del personaje
         Datos datos = new Datos
         {
+            Tipo = tipo,
             Nombre = nombre,
             Apodo = apodo,
             FechaDeNacimiento = fechaFormateda,
@@ -99,6 +100,6 @@ class FabricaDePersonajes
           
 
         // creando una instancia del personajes con sus datos
-        return new Personaje(tipo, datos, caracteristicas);
+        return new Personaje(datos, caracteristicas);
     }
 }

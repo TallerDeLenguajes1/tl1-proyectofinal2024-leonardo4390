@@ -6,7 +6,7 @@ class PersonajeJson
 {
     public void GuardarPersonajes(List<Personaje> personajes, string nombreArchivo)
     {
-        // Convertir el tipo de Enum a string al serializar
+        // JsonSerializerOption lo uso para tener una mejor impresion cuando serializo por writeIndented
         var opcionSerializacion = new JsonSerializerOptions
         {
 

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 class Program
 {
-    public static void Main()
+    public static async Task Main()
     {
         Principal combate = new Principal();
-        combate.Menu();
+        await combate.Menu();
     }
 }
