@@ -1,7 +1,7 @@
 using System;
 
 
-class Caracteristicas
+public class Caracteristicas
 {
     public int Velocidad{get;set;}
     public int Destreza{get;set;}

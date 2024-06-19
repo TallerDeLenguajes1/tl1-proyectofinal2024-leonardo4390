@@ -13,6 +13,7 @@ class Principal
         TipoPersonaje tipoElegido;
         FabricaDePersonajes fabrica = new FabricaDePersonajes();
         PersonajeJson personajeJson = new PersonajeJson();
+        HistorialJson historialJson = new HistorialJson();
         ConsumoAPI climaAPI = new ConsumoAPI();
 
         while (true)
@@ -35,7 +36,9 @@ class Principal
             {
                 if (Enum.TryParse(entrada, true, out tipoElegido))
                 {
-                    if (tipoElegido == TipoPersonaje.Arquero || tipoElegido == TipoPersonaje.Guerrero || tipoElegido == TipoPersonaje.Mago)
+                    if (tipoElegido == TipoPersonaje.Arquero || tipoElegido == TipoPersonaje.Guerrero || tipoElegido == TipoPersonaje.Mago
+                    || tipoElegido == TipoPersonaje.Asesino ||tipoElegido == TipoPersonaje.Barbaro || tipoElegido == TipoPersonaje.Bruja
+                    || tipoElegido == TipoPersonaje.Hechicero || tipoElegido == TipoPersonaje.Nigromante)
                     {
                         break;
                     }
@@ -49,7 +52,7 @@ class Principal
         //leyendo personajes existentes
         List<Personaje> personajesExistentes = personajeJson.LeerPersonajes("personajes.json");
 
-        //personajeUsuario` como null
+        //personajeUsuario como null
         Personaje personajeUsuario = null;
 
         // verificando existencia de personaje tipoelegido en personajes existentes
@@ -122,10 +125,19 @@ class Principal
                 Console.WriteLine("\n---------------------------------\n");
                 Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
                 Console.WriteLine($"{personajeUsuario.Datos.Nombre} es el ganador!");
-
-                //string informacionPartida = $"Tipo del oponente: {tipoAleatorio}, Danio infligido: {danioGuerrero1}";
-                //historialJson.GuardarGanador(new List<Personaje> { personajeUsuario}, "HistorialJson.json");
-                //historialJson.GuardarGanador(personajeUsuario, informacionPartida, "historial.json");
+                
+                //generando historial
+                // Validando ganador
+                if (personajeUsuario.Caracteristicas.Salud > 0)
+                {
+                    historialJson.GuardarGanador(new List<Personaje> { personajeUsuario }, "HistorialJson.json");
+                    Bono(personajeUsuario);
+                    MensajeGanador(personajeUsuario);
+                }
+                else
+                {
+                    Console.WriteLine($"{personajeAleatorio.Datos.Nombre} también ha caído durante la batalla. No hay un ganador.");
+                }
                 break;
             }
 
@@ -139,10 +151,19 @@ class Principal
                 Console.WriteLine("\n-------------------------------\n");
                 Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
                 Console.WriteLine($"{personajeAleatorio.Datos.Nombre} es el ganador!");
-
-                //string informacionPartida = $"Tipo del oponente: {tipoElegido}, Danio infligido: {danioGuerrero2}";
-                //historialJson.GuardarGanador(new List<Personaje> { personajeAleatorio}, "HistorialJson.json");
-                //historialJson.GuardarGanador(personajeAleatorio, informacionPartida, "historial.json");
+                
+                //generando historial
+                // Validando ganador
+                if (personajeAleatorio.Caracteristicas.Salud > 0)
+                {
+                    historialJson.GuardarGanador(new List<Personaje> { personajeAleatorio }, "HistorialJson.json");
+                    Bono(personajeAleatorio);
+                    MensajeGanador(personajeAleatorio);
+                }
+                else
+                {
+                    Console.WriteLine($"{personajeAleatorio.Datos.Nombre} también ha caído durante la batalla. No hay un ganador.");
+                }
             break;
         }
     }
@@ -153,6 +174,11 @@ class Principal
         if (clima != null && clima.weather != null && clima.weather.Length > 0)
         {
             string estadoDelClima = TraducirEstadoDelClima(clima.weather[0].main);
+
+            if (personajeUsuario.Datos.Beneficio == estadoDelClima)
+            {
+                Console.WriteLine("si");
+            }
             Console.WriteLine($"El estado del tiempo es: {estadoDelClima}");
             Console.WriteLine($"El clima actual es: {clima.weather[0].main}");
             Console.WriteLine($"La hora del amanecer es: {clima.sys.sunrise}");
@@ -169,6 +195,7 @@ class Principal
         Console.WriteLine($"Apodo: {personaje.Datos.Apodo}");
         Console.WriteLine($"Fecha de Nacimiento: {personaje.Datos.FechaDeNacimiento} a.E.C");
         Console.WriteLine($"Edad: {personaje.Datos.Edad}");
+        Console.WriteLine($"Beneficio: {personaje.Datos.Beneficio}");
 
         Console.WriteLine($"\nCaracterísticas del personaje {tipo}:");
         Console.WriteLine($"Velocidad: {personaje.Caracteristicas.Velocidad}");
@@ -220,5 +247,32 @@ class Principal
         int danioProvocado = ((ataque * efectividad) - defensa) / constante;
         return danioProvocado;
     }
+
+    //otorgar bono
+    private void Bono(Personaje ganador)
+    {
+        Random random = new Random();
+        int bono = random.Next(2) == 0 ? 5 : 10;
+        if (random.Next(2) == 0)
+        {
+            ganador.Caracteristicas.Fuerza += bono;
+            Console.WriteLine($"{ganador.Datos.Nombre} recibe un bono de {bono} puntos en Fuerza.");
+        }
+        else
+        {
+            ganador.Caracteristicas.Armadura += bono;
+            Console.WriteLine($"{ganador.Datos.Nombre} recibe un bono de {bono} puntos en Armadura.");
+        }
+    }
+
+    //mensaje al ganador
+    private void MensajeGanador(Personaje ganador)
+    {
+        Console.WriteLine("\n------------------------------------------------");
+        Console.WriteLine($" ¡{ganador.Datos.Nombre} es el merecedor del Trono de Hierro!");
+        Console.WriteLine("------------------------------------------------\n");
+        MostrarDatosPersonaje("ganador", ganador, ganador.Datos.Tipo);
+    }
 }
+
 

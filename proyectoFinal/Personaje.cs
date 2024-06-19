@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-enum TipoPersonaje
+public enum TipoPersonaje
 {
     Guerrero,
     Mago,
@@ -13,7 +13,7 @@ enum TipoPersonaje
     Hechicero,
     Bruja
 }
-class Personaje
+public class Personaje
 {
     public Datos Datos{get;set;}
     public Caracteristicas Caracteristicas{get;set;}

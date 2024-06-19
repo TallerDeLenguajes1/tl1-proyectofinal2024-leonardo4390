@@ -21,7 +21,6 @@ class FabricaDePersonajes
         string nombre = "";
         string apodo = "";
         string beneficio = "";
-        string debilidades = "";
 
         switch (tipo)
         {
@@ -34,7 +33,7 @@ class FabricaDePersonajes
             case TipoPersonaje.Mago:
                 nombre = "Pyrus";
                 apodo = "El Ardiente Sabio";
-                beneficio = "Soleado";
+                beneficio = "Despejado";//Soleado cambiar
                 break;
             case TipoPersonaje.Guerrero:
                 nombre = "Durandal";
@@ -49,7 +48,7 @@ class FabricaDePersonajes
             case TipoPersonaje.Barbaro:
                 nombre = "Grom";
                 apodo = "El señor de la Tormenta";
-                debilidades = "Tormenta";
+                beneficio = "Tormenta";//buscar otra
                 break;
             case TipoPersonaje.Asesino:
                 nombre = "Lurker";
@@ -81,7 +80,8 @@ class FabricaDePersonajes
             Nombre = nombre,
             Apodo = apodo,
             FechaDeNacimiento = fechaFormateda,
-            Edad = random.Next(0, 300)
+            Edad = random.Next(0, 300),
+            Beneficio = beneficio
         };
 
         //caracteristicas del personaje

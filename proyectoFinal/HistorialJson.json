@@ -1,0 +1,128 @@
+[
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Arquero",
+        "Nombre": "Hydron",
+        "Apodo": "El Preciso Humedo",
+        "FechaDeNacimiento": "18 de febrero de 432",
+        "Edad": 280,
+        "Beneficio": "LLuvia"
+      },
+      "Caracteristicas": {
+        "Velocidad": 8,
+        "Destreza": 5,
+        "Fuerza": 10,
+        "Nivel": 1,
+        "Armadura": 1,
+        "Salud": 88
+      }
+    },
+    "Fecha": "19-06-2024"
+  },
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Asesino",
+        "Nombre": "Lurker",
+        "Apodo": "El Fantasma de la Noche",
+        "FechaDeNacimiento": "13 de marzo de 723",
+        "Edad": 139,
+        "Beneficio": "Noche"
+      },
+      "Caracteristicas": {
+        "Velocidad": 7,
+        "Destreza": 10,
+        "Fuerza": 8,
+        "Nivel": 10,
+        "Armadura": 4,
+        "Salud": 99
+      }
+    },
+    "Fecha": "19-06-2024"
+  },
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Nigromante",
+        "Nombre": "Nekros",
+        "Apodo": "El Amo de la oscuridad",
+        "FechaDeNacimiento": "17 de febrero de 540",
+        "Edad": 50,
+        "Beneficio": "Noche"
+      },
+      "Caracteristicas": {
+        "Velocidad": 4,
+        "Destreza": 8,
+        "Fuerza": 2,
+        "Nivel": 8,
+        "Armadura": 8,
+        "Salud": 1
+      }
+    },
+    "Fecha": "19-06-2024"
+  },
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Arquero",
+        "Nombre": "Hydron",
+        "Apodo": "El Preciso Humedo",
+        "FechaDeNacimiento": "18 de febrero de 432",
+        "Edad": 280,
+        "Beneficio": "LLuvia"
+      },
+      "Caracteristicas": {
+        "Velocidad": 8,
+        "Destreza": 5,
+        "Fuerza": 10,
+        "Nivel": 1,
+        "Armadura": 1,
+        "Salud": 52
+      }
+    },
+    "Fecha": "19-06-2024"
+  },
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Arquero",
+        "Nombre": "Hydron",
+        "Apodo": "El Preciso Humedo",
+        "FechaDeNacimiento": "18 de febrero de 432",
+        "Edad": 280,
+        "Beneficio": "LLuvia"
+      },
+      "Caracteristicas": {
+        "Velocidad": 8,
+        "Destreza": 5,
+        "Fuerza": 10,
+        "Nivel": 1,
+        "Armadura": 1,
+        "Salud": 17
+      }
+    },
+    "Fecha": "19-06-2024"
+  },
+  {
+    "Ganador": {
+      "Datos": {
+        "Tipo": "Asesino",
+        "Nombre": "Lurker",
+        "Apodo": "El Fantasma de la Noche",
+        "FechaDeNacimiento": "13 de marzo de 723",
+        "Edad": 139,
+        "Beneficio": "Noche"
+      },
+      "Caracteristicas": {
+        "Velocidad": 7,
+        "Destreza": 10,
+        "Fuerza": 8,
+        "Nivel": 10,
+        "Armadura": 4,
+        "Salud": 85
+      }
+    },
+    "Fecha": "19-06-2024"
+  }
+]
