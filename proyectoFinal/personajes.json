@@ -1,37 +1,37 @@
 [
   {
     "Datos": {
-      "Tipo": "Mago",
-      "Nombre": "Pyrus",
-      "Apodo": "El Ardiente Sabio",
-      "FechaDeNacimiento": "23 de agosto de 1164",
-      "Edad": 188,
-      "Beneficio": "Despejado"
+      "Tipo": "Asesino",
+      "Nombre": "Lurker",
+      "Apodo": "El Fantasma de la Noche",
+      "FechaDeNacimiento": "21 de mayo de 252",
+      "Edad": 297,
+      "Beneficio": "Noche"
     },
     "Caracteristicas": {
-      "Velocidad": 3,
+      "Velocidad": 2,
       "Destreza": 1,
-      "Fuerza": 5,
-      "Nivel": 5,
-      "Armadura": 6,
+      "Fuerza": 4,
+      "Nivel": 4,
+      "Armadura": 2,
       "Salud": 100
     }
   },
   {
     "Datos": {
-      "Tipo": "Barbaro",
-      "Nombre": "Grom",
-      "Apodo": "El se\u00F1or de la Tormenta",
-      "FechaDeNacimiento": "3 de julio de 68",
-      "Edad": 164,
-      "Beneficio": "Tormenta"
+      "Tipo": "Arquero",
+      "Nombre": "Hydron",
+      "Apodo": "El Preciso Humedo",
+      "FechaDeNacimiento": "16 de noviembre de 603",
+      "Edad": 259,
+      "Beneficio": "Lluvia"
     },
     "Caracteristicas": {
-      "Velocidad": 6,
-      "Destreza": 1,
-      "Fuerza": 10,
-      "Nivel": 5,
-      "Armadura": 9,
+      "Velocidad": 2,
+      "Destreza": 4,
+      "Fuerza": 7,
+      "Nivel": 7,
+      "Armadura": 4,
       "Salud": 100
     }
   },
@@ -40,88 +40,16 @@
       "Tipo": "Guerrero",
       "Nombre": "Durandal",
       "Apodo": "El Se\u00F1or del Viento",
-      "FechaDeNacimiento": "21 de mayo de 702",
-      "Edad": 109,
+      "FechaDeNacimiento": "28 de agosto de 475",
+      "Edad": 41,
       "Beneficio": "Ventoso"
     },
     "Caracteristicas": {
-      "Velocidad": 4,
-      "Destreza": 3,
-      "Fuerza": 7,
-      "Nivel": 6,
-      "Armadura": 1,
-      "Salud": 100
-    }
-  },
-  {
-    "Datos": {
-      "Tipo": "Nigromante",
-      "Nombre": "Nekros",
-      "Apodo": "El Amo de la oscuridad",
-      "FechaDeNacimiento": "17 de febrero de 540",
-      "Edad": 50,
-      "Beneficio": "Noche"
-    },
-    "Caracteristicas": {
-      "Velocidad": 4,
-      "Destreza": 8,
-      "Fuerza": 2,
-      "Nivel": 8,
+      "Velocidad": 1,
+      "Destreza": 1,
+      "Fuerza": 9,
+      "Nivel": 9,
       "Armadura": 8,
-      "Salud": 100
-    }
-  },
-  {
-    "Datos": {
-      "Tipo": "Arquero",
-      "Nombre": "Hydron",
-      "Apodo": "El Preciso Humedo",
-      "FechaDeNacimiento": "18 de febrero de 432",
-      "Edad": 280,
-      "Beneficio": "LLuvia"
-    },
-    "Caracteristicas": {
-      "Velocidad": 8,
-      "Destreza": 5,
-      "Fuerza": 10,
-      "Nivel": 1,
-      "Armadura": 1,
-      "Salud": 100
-    }
-  },
-  {
-    "Datos": {
-      "Tipo": "Arquero",
-      "Nombre": "Hydron",
-      "Apodo": "El Preciso Humedo",
-      "FechaDeNacimiento": "28 de octubre de 79",
-      "Edad": 143,
-      "Beneficio": "LLuvia"
-    },
-    "Caracteristicas": {
-      "Velocidad": 7,
-      "Destreza": 2,
-      "Fuerza": 5,
-      "Nivel": 1,
-      "Armadura": 5,
-      "Salud": 100
-    }
-  },
-  {
-    "Datos": {
-      "Tipo": "Asesino",
-      "Nombre": "Lurker",
-      "Apodo": "El Fantasma de la Noche",
-      "FechaDeNacimiento": "13 de marzo de 723",
-      "Edad": 139,
-      "Beneficio": "Noche"
-    },
-    "Caracteristicas": {
-      "Velocidad": 7,
-      "Destreza": 10,
-      "Fuerza": 8,
-      "Nivel": 10,
-      "Armadura": 4,
       "Salud": 100
     }
   }

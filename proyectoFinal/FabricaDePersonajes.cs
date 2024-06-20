@@ -28,12 +28,12 @@ class FabricaDePersonajes
             case TipoPersonaje.Arquero:
                 nombre = "Hydron";
                 apodo = "El Preciso Humedo";
-                beneficio = "LLuvia";
+                beneficio = "Lluvia";
                 break;
             case TipoPersonaje.Mago:
                 nombre = "Pyrus";
                 apodo = "El Ardiente Sabio";
-                beneficio = "Despejado";//Soleado cambiar
+                beneficio = "Soleado";//despejado
                 break;
             case TipoPersonaje.Guerrero:
                 nombre = "Durandal";
@@ -43,12 +43,12 @@ class FabricaDePersonajes
             case TipoPersonaje.Nigromante:
                 nombre = "Nekros";
                 apodo = "El Amo de la oscuridad";
-                beneficio = "Noche";
+                beneficio = "Noche";//despejado
                 break;
             case TipoPersonaje.Barbaro:
                 nombre = "Grom";
-                apodo = "El señor de la Tormenta";
-                beneficio = "Tormenta";//buscar otra
+                apodo = "El Devorador del Sol";
+                beneficio = "Soleado";//despejado
                 break;
             case TipoPersonaje.Asesino:
                 nombre = "Lurker";

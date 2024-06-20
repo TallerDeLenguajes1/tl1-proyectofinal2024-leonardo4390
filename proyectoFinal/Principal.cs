@@ -4,9 +4,10 @@ using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 class Principal
 {
-    private string url = "TU_URL";
+    private string url =  "tu_api";
 
     public async Task Menu()
     {
@@ -109,14 +110,52 @@ class Principal
             personajeJson.AgregarPersonajes(new List<Personaje> { personajeAleatorio }, "personajes.json");
         }
 
+        // Obtener el estado del tiempo
+        Clima clima = await climaAPI.ObtenerEstadoTiempo(url);
+        // Obtener la hora de salida del sol y puesta de sol (en UTC)
+        //amanecar
+        // Obtener la hora de salida del sol y puesta de sol (en UTC)
+        int amanecer=0;
+        int atardecer=0;
+        var estadoDelClima="";
+        if (clima != null && clima.weather != null && clima.weather.Length > 0)
+        {
+            TraducirEstadoDelClima(clima.weather[0].main);
+            var horaAmanecer = ConvertirUnixEnTiempoLocal(clima.sys.sunrise);
+            var horaAtardecer = ConvertirUnixEnTiempoLocal(clima.sys.sunset);
+            amanecer = Convert.ToInt32(horaAmanecer.ToString("HH"));
+            atardecer = Convert.ToInt32(horaAtardecer.ToString("HH"));
+            //Console.WriteLine($"El estado del tiempo es: {estadoDelClima}");
+            //Console.WriteLine($"El clima actual es: {clima.weather[0].main}");
+            
+        }
+        //Console.WriteLine($"La hora del amanecer es: {amanecer}");
+        //Console.WriteLine($"La puesta del sol es: {atardecer}");
+        
+        
         //generando combate
+        int primeraVueltaUsuario = 0;
+        int primeraVueltaAleatorio = 0;
         Console.WriteLine("\nComienza el combate!");
         Thread.Sleep(3000);
 
         while (personajeUsuario.Caracteristicas.Salud > 0 && personajeAleatorio.Caracteristicas.Salud > 0)
         {
-            int danioGuerrero1 = CalcularDanio(personajeUsuario,personajeAleatorio);
-            personajeAleatorio.Caracteristicas.Salud -= danioGuerrero1;
+            int danioGuerrero1;
+            int puntoBeneficiosGuerrero1 = PuntosBeneficio(personajeUsuario,amanecer, atardecer,estadoDelClima);
+            if (puntoBeneficiosGuerrero1 > 0 && primeraVueltaUsuario == 0)
+            {
+                danioGuerrero1 = CalcularDanio(personajeUsuario,personajeAleatorio) + puntoBeneficiosGuerrero1;
+                personajeAleatorio.Caracteristicas.Salud -= danioGuerrero1;
+                Console.WriteLine($"Al guerrero {personajeUsuario.Datos.Nombre} se le dio un beneficio por {puntoBeneficiosGuerrero1} punto por estado del clima");
+                primeraVueltaUsuario = 1;
+
+            }
+            else{
+                danioGuerrero1 = CalcularDanio(personajeUsuario,personajeAleatorio);
+                personajeAleatorio.Caracteristicas.Salud -= danioGuerrero1;
+            }
+            
 
             Console.WriteLine($"{personajeUsuario.Datos.Nombre} ataca a {personajeAleatorio.Datos.Nombre} y le inflige {danioGuerrero1} puntos de daño.");
 
@@ -124,13 +163,14 @@ class Principal
             {
                 Console.WriteLine("\n---------------------------------\n");
                 Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
-                Console.WriteLine($"{personajeUsuario.Datos.Nombre} es el ganador!");
+                
                 
                 //generando historial
                 // Validando ganador
                 if (personajeUsuario.Caracteristicas.Salud > 0)
                 {
-                    historialJson.GuardarGanador(new List<Personaje> { personajeUsuario }, "HistorialJson.json");
+                    //historialJson.GuardarGanador(new List<Personaje> { personajeUsuario }, "HistorialJson.json");
+                    Console.WriteLine($"{personajeUsuario.Datos.Nombre} es el ganador!");
                     Bono(personajeUsuario);
                     MensajeGanador(personajeUsuario);
                 }
@@ -141,8 +181,23 @@ class Principal
                 break;
             }
 
-            int danioGuerrero2 = CalcularDanio(personajeAleatorio,personajeUsuario);
-            personajeUsuario.Caracteristicas.Salud -= danioGuerrero2;
+            //personaje aleatorio
+            int danioGuerrero2;
+            int puntoBeneficiosGuerrero2 = PuntosBeneficio(personajeAleatorio,amanecer, atardecer,estadoDelClima);
+            if (puntoBeneficiosGuerrero2 > 0 && primeraVueltaAleatorio == 0)
+            {
+                danioGuerrero2 = CalcularDanio(personajeAleatorio,personajeUsuario);
+                Console.WriteLine($"Al guerrero {personajeAleatorio.Datos.Nombre} se le dio un beneficio por {puntoBeneficiosGuerrero2}");
+                personajeUsuario.Caracteristicas.Salud -= danioGuerrero2;
+                primeraVueltaAleatorio = 1;
+                
+            }
+            else{
+                danioGuerrero2 = CalcularDanio(personajeAleatorio,personajeUsuario);
+                personajeUsuario.Caracteristicas.Salud -= danioGuerrero2;
+            }
+            
+            
 
             Console.WriteLine($"{personajeAleatorio.Datos.Nombre} ataca a {personajeUsuario.Datos.Nombre} y le inflige {danioGuerrero2} puntos de daño.");
 
@@ -150,13 +205,14 @@ class Principal
             {
                 Console.WriteLine("\n-------------------------------\n");
                 Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
-                Console.WriteLine($"{personajeAleatorio.Datos.Nombre} es el ganador!");
+                
                 
                 //generando historial
                 // Validando ganador
                 if (personajeAleatorio.Caracteristicas.Salud > 0)
                 {
-                    historialJson.GuardarGanador(new List<Personaje> { personajeAleatorio }, "HistorialJson.json");
+                    //historialJson.GuardarGanador(new List<Personaje> { personajeAleatorio }, "HistorialJson.json");
+                    Console.WriteLine($"{personajeAleatorio.Datos.Nombre} es el ganador!");
                     Bono(personajeAleatorio);
                     MensajeGanador(personajeAleatorio);
                 }
@@ -169,21 +225,7 @@ class Principal
     }
 
 
-        // Obtener el estado del tiempo
-        Clima clima = await climaAPI.ObtenerEstadoTiempo(url);
-        if (clima != null && clima.weather != null && clima.weather.Length > 0)
-        {
-            string estadoDelClima = TraducirEstadoDelClima(clima.weather[0].main);
-
-            if (personajeUsuario.Datos.Beneficio == estadoDelClima)
-            {
-                Console.WriteLine("si");
-            }
-            Console.WriteLine($"El estado del tiempo es: {estadoDelClima}");
-            Console.WriteLine($"El clima actual es: {clima.weather[0].main}");
-            Console.WriteLine($"La hora del amanecer es: {clima.sys.sunrise}");
-            Console.WriteLine($"La puesta del sol es: {clima.sys.sunset}");
-        }
+       
         
     }
 
@@ -247,6 +289,47 @@ class Principal
         int danioProvocado = ((ataque * efectividad) - defensa) / constante;
         return danioProvocado;
     }
+    //conversion de fecha
+    private DateTime ConvertirUnixEnTiempoLocal(long unixTimeStamp)
+    {
+        // Unix timestamp is seconds past epoch
+        var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        dateTime = dateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+        return dateTime;
+    }
+    //calcular puntos beneficio
+    public int PuntosBeneficio(Personaje personaje,int horaAmanecer, int horaAtardecer,string estadoClima)
+    {
+        Random random = new Random();
+        DateTime hora = DateTime.Now;
+        int actualHora = Convert.ToInt32(hora.ToString("HH"));
+        int puntosBeneficios=0;
+        if (personaje.Datos.Beneficio == "Soleado")
+        {
+            if (estadoClima == "Despejado" && actualHora > horaAmanecer && actualHora < horaAtardecer)
+            {
+                puntosBeneficios = random.Next(1,11);
+            }
+            
+        }
+        else{
+            if (personaje.Datos.Beneficio == "Noche")
+            {
+                if (actualHora > horaAtardecer && actualHora < horaAmanecer)
+                {
+                    puntosBeneficios = random.Next(1,11);
+                }
+            }
+            else{
+                if (personaje.Datos.Beneficio == estadoClima)
+                {
+                    puntosBeneficios = random.Next(1,11);
+                }
+            }
+        }
+        return puntosBeneficios;
+        
+    }
 
     //otorgar bono
     private void Bono(Personaje ganador)
@@ -274,5 +357,7 @@ class Principal
         MostrarDatosPersonaje("ganador", ganador, ganador.Datos.Tipo);
     }
 }
+
+
 
 
