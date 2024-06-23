@@ -23,7 +23,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 1. Tipo: Arquero 
    Nombre: Hydron
    Apodo: El Preciso Húmedo
-   Beneficio del Clima: *Lluvia
+   Beneficio del Clima: *Lluvia*
    Habilidades:
         Flecha Acuática: Sus flechas pueden atravesar la lluvia sin perder velocidad.
         Mirada Líquida: Puede ver claramente a través de la lluvia intensa.
@@ -32,7 +32,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 2. Tipo: Mago 
    Nombre: Pyrus
    Apodo: El Ardiente Sabio
-   Beneficio del Clima: *Soleado
+   Beneficio del Clima: *Soleado*
    Habilidades:
         Ola de Calor: Emite una onda expansiva que deshidrata a sus enemigos.
         Espejismo Mágico: Crea ilusiones ópticas en el aire caliente.
@@ -41,7 +41,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 3. Tipo: Guerrero
    Nombre: Durandal
    Apodo: El Señor del Viento
-   Beneficio: *Dias Ventosos
+   Beneficio: *Dias Ventosos*
    Habilidades: 
         Cuchilla Afilada: Puede crear cuchillas de viento afiladas como navajas.
 	    Grito del Vendaval: Puede liberar un grito ensordecedor que desequilibra a sus oponentes.
@@ -51,7 +51,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 4. Tipo: Nigromante
    Nombre: Nekros
    Apodo: El Amo de las Sombras
-   Beneficio: *Noche
+   Beneficio: *Noche*
    Habilidades:
         Resurrección Profana: Nekros puede revivir a los muertos, convirtiéndolos en sus leales sirvientes.
 	    Manto de Sombras: Nekros se envuelve en un manto oscuro que lo hace invisible para los ojos mortales. Puede moverse sin ser detectado y emboscar a sus enemigos desde las sombras.
@@ -60,7 +60,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 5. Tipo: Bárbaro
    Nombre: Grom
    Apodo: El Deborador del Sol
-   Beneficio: *Dias Soleados
+   Beneficio: *Dias Soleados*
    Habilidades:
 	    Espada Solar: Cuando la desenvaina, su filo se calienta, y cada golpe quema como el sol abrasador.
 	    Grito Solar: Grom puede rugir como un sol en su cenit. Su grito desorienta a los enemigos, cegándolos 			     momentáneamente y debilitando su voluntad de luchar.
@@ -69,7 +69,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 6. Tipo: Asesino
    Nombre: Lurker
    Apodo: El Fantasma de la Noche
-   Beneficio: *Noche
+   Beneficio: *Noche*
    Habilidades: 
         Sigilo avanzado, habilidades de camuflaje en la oscuridad, maestro en el uso de armas arrojadizas y técnicas de asesinato silencioso.
    Descripción: Lurker es un enigma. Nadie sabe de dónde viene ni quién lo entrenó en las artes oscuras del asesinato. Su rostro está siempre oculto bajo una capucha negra, y sus ojos brillan como dos luciérnagas en la noche.
@@ -77,7 +77,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 7. Tipo: Bruja
    Nombre: Morgana
    Apodo: La Reina del Rayo
-   Beneficio: *Dias de Tormenta
+   Beneficio: *Dias de Tormenta*
    Habilidades: 
         Control sobre los rayos y truenos, invocación de relámpagos, capacidad para electrificar y manipular objetos metálicos.
    Descripción: En la batalla, Morgana es una fuerza imparable. Sus enemigos son reducidos a cenizas por los rayos que ella dirige. Su risa es como el retumbar de un trueno, y su mirada, fría como el metal.
@@ -85,7 +85,7 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 8. Tipo: Hechicero
    Nombre: Mistralia
    Apodo: Susurro velado
-   Beneficio: *Dias de Niebla
+   Beneficio: *Dias de Niebla*
    Habilidades: 
 	    Encantamientos Nebulosos: Mistralia puede inscribir runas en la niebla y lanzar hechizos a través de ella. Puede alterar la realidad temporal o cambiar la percepción de los demás.
 	    Camuflaje de Bruma: Se vuelve invisible dentro de la niebla.
@@ -95,4 +95,4 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
 ### Iniciativa del Juego
 La idea surge de implementar un poco del gusto de personajes miticos y juegos de la actualidad que aprovechan el estado del tiempo o la hora del día, me pareció adecuado aprovechar esas ideas e implementarlo a este proyecto de combate, sin nada mas que decir.
 
-**Prepárate para explorar un mundo donde los climas y estado del dia cobran vida y los mitos se entrelazan con la naturaleza! 
+**Prepárate para explorar un mundo donde los climas y estado del dia cobran vida y los mitos se entrelazan con la naturaleza!**
