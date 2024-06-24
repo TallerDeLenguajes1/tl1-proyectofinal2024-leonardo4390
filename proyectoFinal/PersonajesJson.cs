@@ -9,10 +9,7 @@ class PersonajeJson
         // JsonSerializerOption lo uso para tener una mejor impresion cuando serializo por writeIndented
         var opcionSerializacion = new JsonSerializerOptions
         {
-
             WriteIndented = true,
-
-            //Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
         };
         
         string json = JsonSerializer.Serialize(personajes, opcionSerializacion);
@@ -24,11 +21,8 @@ class PersonajeJson
         if (File.Exists(nombreArchivo))
         {
             string json = File.ReadAllText(nombreArchivo);
-            // Convertir el tipo de string a Enum al deserializar
-            var opcionesDeserializacion = new JsonSerializerOptions
-            {
-                //Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
-            };
+            //convertir el tipo de string a enum al deserializar
+            var opcionesDeserializacion = new JsonSerializerOptions{};
 
             return JsonSerializer.Deserialize<List<Personaje>>(json, opcionesDeserializacion);
         }
@@ -50,40 +44,17 @@ class PersonajeJson
         personajesExistentes.AddRange(nuevosPersonajes);
         GuardarPersonajes(personajesExistentes, nombreArchivo);
     }
-}
-/*// Clase para manejar la lectura y escritura de personajes en formato JSON
-class PersonajeJson
-{
-    public void GuardarPersonajes(List<Personaje> personajes, string nombreArchivo)
+    public void ActualizarPersonaje(Personaje personajeGanador, string nombreArchivo)
     {
-        string json = JsonSerializer.Serialize(personajes);
-        File.WriteAllText(nombreArchivo, json);
-    }
+        List<Personaje> personajes = LeerPersonajes(nombreArchivo);
 
-    public List<Personaje> LeerPersonajes(string nombreArchivo)
-    {
-        if (File.Exists(nombreArchivo))
+        //buscando personaje a actualizar
+        int ganador = personajes.FindIndex(p => p.Datos.Tipo == personajeGanador.Datos.Tipo && p.Datos.Nombre == personajeGanador.Datos.Nombre);
+        if (ganador >= 0)
         {
-            string json = File.ReadAllText(nombreArchivo);
-            return JsonSerializer.Deserialize<List<Personaje>>(json);
-        }
-        else
-        {
-            return new List<Personaje>();
+            personajes[ganador] = personajeGanador;
+            GuardarPersonajes(personajes, nombreArchivo);
         }
     }
 
-    public bool Existe(string nombreArchivo)
-    {
-        return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
-    }
-
-    public void AgregarPersonajes(List<Personaje> nuevosPersonajes, string nombreArchivo)
-    {
-        List<Personaje> personajesExistentes = LeerPersonajes(nombreArchivo);
-        personajesExistentes.AddRange(nuevosPersonajes);
-        GuardarPersonajes(personajesExistentes, nombreArchivo);
-    }
 }
-
-*/

@@ -1,62 +1,95 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
+using System.IO;
 
-public class HistorialJson
+class HistorialJson
 {
-    public void GuardarGanador(List<Personaje> personajes, string nombreArchivo)
+    public void GuardarGanador(Personaje ganador, string nombreArchivo)
     {
-        List<HistorialBatalla> historialExistente = LeerHistorial(nombreArchivo);
-
-        foreach (var personaje in personajes)
+        List<Ganador> historialGanador = LeerGanador(nombreArchivo);
+        var ganadorExistente = historialGanador.Find(g =>g.Datos.Tipo == ganador.Datos.Tipo);
+        
+        if (ganadorExistente != null)
         {
-            var historialBatalla = new HistorialBatalla(personaje, DateTime.Now.ToString("dd-MM-yyyy"));
-
-            historialExistente.Add(historialBatalla);
+            ganadorExistente.Victorias ++;       
         }
-
-        var opcionesSerializacion = new JsonSerializerOptions
+        else{
+            var nuevoGanador = new Ganador(ganador.Datos);
+            historialGanador.Add(nuevoGanador);
+        }
+        
+        var opcionSerializacion = new JsonSerializerOptions
         {
-            WriteIndented = true
+            WriteIndented = true,
         };
-
-        string json = JsonSerializer.Serialize(historialExistente, opcionesSerializacion);
-        File.WriteAllText(nombreArchivo, json);
+        string json = JsonSerializer.Serialize(historialGanador,opcionSerializacion);
+        File.WriteAllText(nombreArchivo,json);
     }
 
-    public List<HistorialBatalla> LeerHistorial(string nombreArchivo)
+    public List<Ganador> LeerGanador(string nombreArchivo)
     {
         if (File.Exists(nombreArchivo))
         {
             string json = File.ReadAllText(nombreArchivo);
-            return JsonSerializer.Deserialize<List<HistorialBatalla>>(json);
+            return JsonSerializer.Deserialize<List<Ganador>>(json);
         }
-        else
-        {
-            Console.WriteLine("El archivo no existe.");
-            return new List<HistorialBatalla>();
+        else{
+            Console.WriteLine("No existe el archivo");
+            return new List<Ganador>();
         }
     }
-}
 
-
-
-public class HistorialBatalla
-{
-    public Personaje Ganador { get; set; }
-    public string Fecha { get; set; }
-
-    public HistorialBatalla(Personaje ganador, string fecha) // Ajuste aquí
+    public bool Existe(string nombreArchivo)
     {
-        Ganador = ganador;
-        Fecha = fecha;
+        return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
+    }
+    //obtener Victorias
+    public Datos ObtenerPersonajeMasVictorioso(string nombreArchivo)
+    {
+        List<Ganador> historial = LeerGanador(nombreArchivo);
+        bool perosonajeMasVictorioso = Existe(nombreArchivo);
+
+        if (perosonajeMasVictorioso)
+        {
+            //ordenar historial por victorias forma descendente
+            historial.Sort((x, y) => y.Victorias.CompareTo(x.Victorias));
+
+            // elprimer elemento del historial tiene más victorias
+            return historial[0].Datos;
+            
+        }else{
+            Console.WriteLine("No hay registros de victorias.");
+            return null;
+        }
+
+        
+    }
+
+    public int ObtenerNumerosVictorias(string personaje, string nombreArchivo)
+    {
+        List<Ganador> historial = LeerGanador(nombreArchivo);
+        var batalla = historial.Find(b => b.Datos.Nombre == personaje);
+        if (batalla != null)
+        {
+            return batalla.Victorias;
+        }else{
+            Console.WriteLine($"El personaje {personaje} No tiene victorias registradas");
+            return 0;
+        }
     }
 }
 
+class Ganador
+{
+    public Datos Datos{get;set;}
+    public int Victorias{get;set;}
 
+    //creando constructor
+    public Ganador(){}
 
-
-
-
-
+    public Ganador(Datos datos)
+    {
+        Datos = datos;
+        Victorias = 1;//inicio en 1
+    }
+}

@@ -20,6 +20,7 @@ public class Personaje
 
 
     //constructor para el personaje
+    public Personaje(){}
     
     public Personaje(Datos datos, Caracteristicas caracteristicas)
     {

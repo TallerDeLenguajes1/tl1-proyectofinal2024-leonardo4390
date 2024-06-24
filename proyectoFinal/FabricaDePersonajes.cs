@@ -48,7 +48,7 @@ class FabricaDePersonajes
             case TipoPersonaje.Barbaro:
                 nombre = "Grom";
                 apodo = "El Devorador del Sol";
-                beneficio = "Soleado";//despejado
+                beneficio = "Soleado";//despejado 
                 break;
             case TipoPersonaje.Asesino:
                 nombre = "Lurker";
@@ -80,17 +80,15 @@ class FabricaDePersonajes
             Nombre = nombre,
             Apodo = apodo,
             FechaDeNacimiento = fechaFormateda,
-            Edad = random.Next(0, 300),
+            Edad = random.Next(0, 301),
             Beneficio = beneficio
         };
 
         //caracteristicas del personaje
         Caracteristicas caracteristicas = new Caracteristicas();
-        //if (tipo == TipoPersonaje.Arquero || tipo == TipoPersonaje.Guerrero || tipo == TipoPersonaje.Mago || tipo == TipoPersonaje.Asesino
-        //|| tipo == TipoPersonaje.Barbaro || tipo == TipoPersonaje.Bruja || tipo == TipoPersonaje.Hechicero || tipo == TipoPersonaje.Nigromante)
         {
             caracteristicas.Velocidad = random.Next(1, 11);
-            caracteristicas.Destreza = random.Next(1, 11);
+            caracteristicas.Destreza = random.Next(1, 6);
             caracteristicas.Fuerza = random.Next(1, 11);
             caracteristicas.Nivel = random.Next(1, 11);
             caracteristicas.Armadura = random.Next(1, 11);
@@ -99,7 +97,7 @@ class FabricaDePersonajes
         
           
 
-        // creando una instancia del personajes con sus datos
+        //creando una instancia del personajes con sus datos
         return new Personaje(datos, caracteristicas);
     }
 }
