@@ -1,0 +1,110 @@
+[
+  {
+    "Datos": {
+      "Tipo": "Mago",
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "9 de octubre de 1189",
+      "Edad": 125,
+      "Beneficio": "Nublado"
+    },
+    "Caracteristicas": {
+      "Velocidad": 8,
+      "Destreza": 3,
+      "Fuerza": 8,
+      "Nivel": 7,
+      "Armadura": 10,
+      "Salud": 100
+    }
+  },
+  {
+    "Datos": {
+      "Tipo": "Guerrero",
+      "Nombre": "Durandal",
+      "Apodo": "El Senior del Viento",
+      "FechaDeNacimiento": "25 de abril de 533",
+      "Edad": 288,
+      "Beneficio": "Nublado"
+    },
+    "Caracteristicas": {
+      "Velocidad": 9,
+      "Destreza": 5,
+      "Fuerza": 4,
+      "Nivel": 7,
+      "Armadura": 10,
+      "Salud": 100
+    }
+  },
+  {
+    "Datos": {
+      "Tipo": "Asesino",
+      "Nombre": "Lurker",
+      "Apodo": "El Fantasma de la Noche",
+      "FechaDeNacimiento": "23 de junio de 825",
+      "Edad": 23,
+      "Beneficio": "Noche"
+    },
+    "Caracteristicas": {
+      "Velocidad": 4,
+      "Destreza": 3,
+      "Fuerza": 5,
+      "Nivel": 6,
+      "Armadura": 1,
+      "Salud": 100
+    }
+  },
+  {
+    "Datos": {
+      "Tipo": "Bruja",
+      "Nombre": "Morgana",
+      "Apodo": "La Reina del Rayo",
+      "FechaDeNacimiento": "10 de abril de 1116",
+      "Edad": 78,
+      "Beneficio": "Tormenta"
+    },
+    "Caracteristicas": {
+      "Velocidad": 8,
+      "Destreza": 5,
+      "Fuerza": 6,
+      "Nivel": 7,
+      "Armadura": 10,
+      "Salud": 100
+    }
+  },
+  {
+    "Datos": {
+      "Tipo": "Barbaro",
+      "Nombre": "Grom",
+      "Apodo": "El Devorador del Sol",
+      "FechaDeNacimiento": "11 de enero de 218",
+      "Edad": 176,
+      "Beneficio": "Soleado"
+    },
+    "Caracteristicas": {
+      "Velocidad": 7,
+      "Destreza": 5,
+      "Fuerza": 6,
+      "Nivel": 3,
+      "Armadura": 3,
+      "Salud": 100
+    }
+  },
+  {
+    "Datos": {
+      "Tipo": "Hechicero",
+      "Nombre": "Mistralia",
+      "Apodo": "Susurro velado",
+      "FechaDeNacimiento": "19 de noviembre de 981",
+      "Edad": 54,
+      "Beneficio": "Niebla"
+    },
+    "Caracteristicas": {
+      "Velocidad": 4,
+      "Destreza": 1,
+      "Fuerza": 10,
+      "Nivel": 6,
+      "Armadura": 2,
+      "Salud": 100
+    }
+  }
+]

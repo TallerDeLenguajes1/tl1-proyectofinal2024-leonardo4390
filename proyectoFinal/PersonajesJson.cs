@@ -21,7 +21,6 @@ class PersonajeJson
         if (File.Exists(nombreArchivo))
         {
             string json = File.ReadAllText(nombreArchivo);
-            //convertir el tipo de string a enum al deserializar
             var opcionesDeserializacion = new JsonSerializerOptions{};
 
             return JsonSerializer.Deserialize<List<Personaje>>(json, opcionesDeserializacion);

@@ -37,7 +37,7 @@ class FabricaDePersonajes
                 break;
             case TipoPersonaje.Guerrero:
                 nombre = "Durandal";
-                apodo = "El Señor del Viento";
+                apodo = "El Senior del Viento";
                 beneficio = "Ventoso";
                 break;
             case TipoPersonaje.Nigromante:

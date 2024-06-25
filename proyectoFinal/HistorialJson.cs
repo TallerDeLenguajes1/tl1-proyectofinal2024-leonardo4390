@@ -77,6 +77,23 @@ class HistorialJson
             return 0;
         }
     }
+
+    //dos personajes con más victorias
+    public List<(Datos Datos, int Victorias)> ObtenerDosPersonajesMasVictoriosos(string nombreArchivo)
+    {
+        List<Ganador> historial = LeerGanador(nombreArchivo);
+        if (historial == null || historial.Count == 0)
+        {
+            return new List<(Datos Datos, int Victorias)>();
+        }
+
+        //ordenar victorias descendente solo los primeros dos
+        var topDos = historial.OrderByDescending(g => g.Victorias).Take(2)
+                              .Select(g => (g.Datos, g.Victorias))
+                              .ToList();
+
+        return topDos;
+    }
 }
 
 class Ganador
