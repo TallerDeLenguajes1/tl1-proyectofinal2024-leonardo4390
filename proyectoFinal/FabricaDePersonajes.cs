@@ -48,7 +48,7 @@ class FabricaDePersonajes
             case TipoPersonaje.Barbaro:
                 nombre = "Grom";
                 apodo = "El Devorador del Sol";
-                beneficio = "Soleado";//despejado 
+                beneficio = "Nublado";//despejado 
                 break;
             case TipoPersonaje.Asesino:
                 nombre = "Lurker";

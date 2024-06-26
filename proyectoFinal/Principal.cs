@@ -7,12 +7,16 @@ class Principal
     
     private string archivoPersonajeJson = "personajes.json";
     private string archivoHistorialJson = "historial.json";
+    private const int NUMERO_PERSONAJES = 2;
+    private Random random = new Random();
+    private FabricaDePersonajes fabrica = new FabricaDePersonajes();
+    private PersonajeJson personajeJson = new PersonajeJson();
 
     public async Task Menu()
     {
         TipoPersonaje tipoElegido;
-        FabricaDePersonajes fabrica = new FabricaDePersonajes();
-        PersonajeJson personajeJson = new PersonajeJson();
+        //FabricaDePersonajes fabrica = new FabricaDePersonajes();
+        //PersonajeJson personajeJson = new PersonajeJson();
         HistorialJson historialJson = new HistorialJson();
         ConsumoAPI climaAPI = new ConsumoAPI();
         Random random = new Random();
@@ -23,84 +27,90 @@ class Principal
         Thread.Sleep(2000);
 
         List<Personaje> personajesExistentes = personajeJson.LeerPersonajes(archivoPersonajeJson);
-        //generacion de personajes usuario
-        List<Personaje> personajesUsuario = new List<Personaje>();
-        for (int i = 0; i < 2; i++)
-        {
-            //menu de personajes
-            while (true)
-            {
-                //menu personaje
-                MenuPersonaje();
+        //generando personajes del usuario
+        List<Personaje> personajesUsuario = GenerarPersonajesUsuario(personajesExistentes);
 
-                var elegido = Console.ReadLine();
-                //verificacion de entrada del tipo personaje
-                if (!int.TryParse(elegido, out _))
-                {
-                    if (Enum.TryParse<TipoPersonaje>(elegido,true, out tipoElegido))
-                    {
-                        break;
-                    }
-                    else{
-                        Console.WriteLine("Tipo de personaje incorrecto, ingrese otra vez");
-                    }
-                }
-                else{
-                    Console.WriteLine("Tipo de personaje incorrecto, ingrese otra vez");
-                } 
-            }
-            
-            //leyendo personajes existentes y verificando existencia
-            Personaje personajeUsuario = personajesExistentes.Find(p => p.Datos.Tipo == tipoElegido);
-            if (personajeUsuario == null)
-            {
-                personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
-                personajesExistentes.Add(personajeUsuario);
-            }
+        //generando personajes aleatorios
+        List<Personaje> personajesAleatorios = GenerarPersonajesAleatorios(personajesExistentes);
+        // //generacion de personajes usuario
+        // List<Personaje> personajesUsuario = new List<Personaje>();
+        // for (int i = 0; i < NUMERO_PERONAJES; i++)
+        // {
+        //     //menu de personajes
+        //     while (true)
+        //     {
+        //         //menu personaje
+        //         MenuPersonaje();
 
-            personajesUsuario.Add(personajeUsuario);
+        //         var elegido = Console.ReadLine();
+        //         //verificacion de entrada del tipo personaje
+        //         if (!int.TryParse(elegido, out _))
+        //         {
+        //             if (Enum.TryParse<TipoPersonaje>(elegido,true, out tipoElegido))
+        //             {
+        //                 break;
+        //             }
+        //             else{
+        //                 Console.WriteLine("Tipo de personaje incorrecto, ingrese otra vez");
+        //             }
+        //         }
+        //         else{
+        //             Console.WriteLine("Tipo de personaje incorrecto, ingrese otra vez");
+        //         } 
+        //     }
             
-        }
+        //     //leyendo personajes existentes y verificando existencia
+        //     Personaje personajeUsuario = personajesExistentes.Find(p => p.Datos.Tipo == tipoElegido);
+        //     if (personajeUsuario == null)
+        //     {
+        //         personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
+        //         personajesExistentes.Add(personajeUsuario);
+        //     }
+
+        //     personajesUsuario.Add(personajeUsuario);
+            
+        // }
         
 
-         //generacion de personajes aleatorios
-        List<Personaje> personajesAleatorios = new List<Personaje>();
-        Console.WriteLine("\nGenerando Personaje Aleatorio");
-        Thread.Sleep(2000);
-        Console.WriteLine("\nCargando Personajes");
-        Thread.Sleep(2000);
+        //  //generacion de personajes aleatorios
+        // List<Personaje> personajesAleatorios = new List<Personaje>();
+        // Console.WriteLine("\nGenerando Personaje Aleatorio");
+        // Thread.Sleep(2000);
+        // Console.WriteLine("\nCargando Personajes");
+        // Thread.Sleep(2000);
 
-        for (int i = 0; i < 2; i++)
-        {
-            TipoPersonaje tipoAleatorio;
-            Personaje personajeAleatorio = null;
+        // for (int i = 0; i < NUMERO_PERONAJES; i++)
+        // {
+        //     TipoPersonaje tipoAleatorio;
+        //     Personaje personajeAleatorio = null;
 
-            do
-            {
-                tipoAleatorio = (TipoPersonaje)random.Next(Enum.GetValues(typeof(TipoPersonaje)).Length);
-                personajeAleatorio = personajesExistentes.Find(p => p.Datos.Tipo == tipoAleatorio);
-                if (personajeAleatorio == null)
-                {
-                    personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
-                    personajesExistentes.Add(personajeAleatorio);
-                }
-            } while (personajeAleatorio == null);
+        //     do
+        //     {
+        //         tipoAleatorio = (TipoPersonaje)random.Next(Enum.GetValues(typeof(TipoPersonaje)).Length);
+        //         personajeAleatorio = personajesExistentes.Find(p => p.Datos.Tipo == tipoAleatorio);
+        //         if (personajeAleatorio == null)
+        //         {
+        //             personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
+        //             personajesExistentes.Add(personajeAleatorio);
+        //         }
+        //     } while (personajeAleatorio == null);
 
-            personajesAleatorios.Add(personajeAleatorio);
-        }
+        //     personajesAleatorios.Add(personajeAleatorio);
+        // }
 
         //mostrando personajes a combatir
-        Console.WriteLine("\nPersonajes a Combatir");
-        Thread.Sleep(2000);
-        foreach (var personaje in personajesUsuario)
-        {
-            MostrarDatosPersonaje("usuario", personaje, personaje.Datos.Tipo);
-        }
+        PersonajeACombatir(personajesUsuario,personajesAleatorios);
+        // Console.WriteLine("\nPersonajes a Combatir");
+        // Thread.Sleep(2000);
+        // foreach (var personaje in personajesUsuario)
+        // {
+        //     MostrarDatosPersonaje("usuario", personaje, personaje.Datos.Tipo);
+        // }
 
-        foreach (var personaje in personajesAleatorios)
-        {
-            MostrarDatosPersonaje("aleatorio", personaje, personaje.Datos.Tipo);
-        }
+        // foreach (var personaje in personajesAleatorios)
+        // {
+        //     MostrarDatosPersonaje("aleatorio", personaje, personaje.Datos.Tipo);
+        // }
         
         //guardar personajes en el archivo JSON
         personajeJson.GuardarPersonajes(personajesExistentes, archivoPersonajeJson);
@@ -134,138 +144,143 @@ class Principal
         
         
         //generando combate
-        int primeraVueltaUsuario = 0;
-        int primeraVueltaAleatorio = 0;
-        Console.WriteLine("\nComienza el combate!");
-        Thread.Sleep(3000);
-        Console.WriteLine("\n----------------------------------------------------\n");
+        // int primeraVueltaUsuario = 0;
+        // int primeraVueltaAleatorio = 0;
+        // Console.WriteLine("\nComienza el combate!");
+        // Thread.Sleep(3000);
+        // Console.WriteLine("\n----------------------------------------------------\n");
         
         //combate
-        int indiceUsuario = 0;
-        int indiceAleatorio = 0;
-        while (indiceUsuario < personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
-        {
-            var personajeUsuario = personajesUsuario[indiceUsuario];
-            var personajeAleatorio = personajesAleatorios[indiceAleatorio];
+        // Realizar combate
+        Personaje ganador = RealizarCombate(personajesUsuario, personajesAleatorios, estadoDelClima,amanecer,atardecer);
+        // int indiceUsuario = 0;
+        // int indiceAleatorio = 0;
+        // while (indiceUsuario < personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
+        // {
+        //     var personajeUsuario = personajesUsuario[indiceUsuario];
+        //     var personajeAleatorio = personajesAleatorios[indiceAleatorio];
 
-            while (personajeUsuario.Caracteristicas.Salud > 0 && personajeAleatorio.Caracteristicas.Salud > 0)
-            {
-                //ataque del personaje usuario
-                int danioUsuario;
-                int puntosBeneficioUsuario = PuntosBeneficio(personajeUsuario, amanecer, atardecer, estadoDelClima);
-                if (puntosBeneficioUsuario > 0 && primeraVueltaUsuario == 0)
-                {
-                    danioUsuario = CalcularDanio(personajeUsuario, personajeAleatorio) + puntosBeneficioUsuario;
-                    Console.WriteLine($"Al guerrero {personajeUsuario.Datos.Nombre} se le dio un beneficio por {puntosBeneficioUsuario} puntos por estado del clima");
-                    primeraVueltaUsuario ++;
-                }
-                else
-                {
-                    danioUsuario = CalcularDanio(personajeUsuario, personajeAleatorio);
-                }
-                personajeAleatorio.Caracteristicas.Salud -= danioUsuario;
-                Console.WriteLine($"{personajeUsuario.Datos.Nombre} ataca a {personajeAleatorio.Datos.Nombre} y le inflige {danioUsuario} puntos de daño");
+        //     while (personajeUsuario.Caracteristicas.Salud > 0 && personajeAleatorio.Caracteristicas.Salud > 0)
+        //     {
+        //         //ataque del personaje usuario
+        //         int danioUsuario;
+        //         int puntosBeneficioUsuario = PuntosBeneficio(personajeUsuario, amanecer, atardecer, estadoDelClima);
+        //         if (puntosBeneficioUsuario > 0 && primeraVueltaUsuario == 0)
+        //         {
+        //             danioUsuario = CalcularDanio(personajeUsuario, personajeAleatorio) + puntosBeneficioUsuario;
+        //             Console.WriteLine($"Al guerrero {personajeUsuario.Datos.Nombre} se le dio un beneficio por {puntosBeneficioUsuario} puntos por estado del clima");
+        //             primeraVueltaUsuario ++;
+        //         }
+        //         else
+        //         {
+        //             danioUsuario = CalcularDanio(personajeUsuario, personajeAleatorio);
+        //         }
+        //         personajeAleatorio.Caracteristicas.Salud -= danioUsuario;
+        //         Console.WriteLine($"{personajeUsuario.Datos.Nombre} ataca a {personajeAleatorio.Datos.Nombre} y le inflige {danioUsuario} puntos de daño");
 
-                //verificar de salud del personaje aleatorio
-                if (personajeAleatorio.Caracteristicas.Salud <= 0)
-                {
-                    Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
-                    //historialJson.GuardarGanador(personajeUsuario, archivoHistorialJson);
-                    Bono(personajeUsuario);
-                    break;
-                }
+        //         //verificar de salud del personaje aleatorio
+        //         if (personajeAleatorio.Caracteristicas.Salud <= 0)
+        //         {
+        //             Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
+        //             //historialJson.GuardarGanador(personajeUsuario, archivoHistorialJson);
+        //             Bono(personajeUsuario);
+        //             break;
+        //         }
 
-                //ataque del personaje aleatorio
-                int danioAleatorio;
-                int puntosBeneficioAleatorio = PuntosBeneficio(personajeAleatorio, amanecer, atardecer, estadoDelClima);
-                if (puntosBeneficioAleatorio > 0 && primeraVueltaAleatorio == 0)
-                {
-                    danioAleatorio = CalcularDanio(personajeAleatorio, personajeUsuario) + puntosBeneficioAleatorio;
-                    Console.WriteLine($"Al guerrero {personajeAleatorio.Datos.Nombre} se le dio un beneficio por {puntosBeneficioAleatorio} puntos por estado del clima");
-                    primeraVueltaAleatorio ++;
-                }
-                else
-                {
-                    danioAleatorio = CalcularDanio(personajeAleatorio, personajeUsuario);
-                }
-                personajeUsuario.Caracteristicas.Salud -= danioAleatorio;
-                Console.WriteLine($"{personajeAleatorio.Datos.Nombre} ataca a {personajeUsuario.Datos.Nombre} y le inflige {danioAleatorio} puntos de daño");
+        //         //ataque del personaje aleatorio
+        //         int danioAleatorio;
+        //         int puntosBeneficioAleatorio = PuntosBeneficio(personajeAleatorio, amanecer, atardecer, estadoDelClima);
+        //         if (puntosBeneficioAleatorio > 0 && primeraVueltaAleatorio == 0)
+        //         {
+        //             danioAleatorio = CalcularDanio(personajeAleatorio, personajeUsuario) + puntosBeneficioAleatorio;
+        //             Console.WriteLine($"Al guerrero {personajeAleatorio.Datos.Nombre} se le dio un beneficio por {puntosBeneficioAleatorio} puntos por estado del clima");
+        //             primeraVueltaAleatorio ++;
+        //         }
+        //         else
+        //         {
+        //             danioAleatorio = CalcularDanio(personajeAleatorio, personajeUsuario);
+        //         }
+        //         personajeUsuario.Caracteristicas.Salud -= danioAleatorio;
+        //         Console.WriteLine($"{personajeAleatorio.Datos.Nombre} ataca a {personajeUsuario.Datos.Nombre} y le inflige {danioAleatorio} puntos de daño");
 
-                //verificar de salud del personaje usuario
-                if (personajeUsuario.Caracteristicas.Salud <= 0)
-                {
-                    Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
-                    //historialJson.GuardarGanador(personajeAleatorio, archivoHistorialJson);
-                    Bono(personajeAleatorio);
-                    break;
-                }
-            }
+        //         //verificar de salud del personaje usuario
+        //         if (personajeUsuario.Caracteristicas.Salud <= 0)
+        //         {
+        //             Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
+        //             //historialJson.GuardarGanador(personajeAleatorio, archivoHistorialJson);
+        //             Bono(personajeAleatorio);
+        //             break;
+        //         }
+        //     }
 
-            //seguir con el siguiente personaje si el actual ha sido derrotado
-            if (personajeUsuario.Caracteristicas.Salud <= 0)
-            {
-                indiceUsuario++;
-                primeraVueltaUsuario = 0;
-            }
+        //     //seguir con el siguiente personaje si el actual ha sido derrotado
+        //     if (personajeUsuario.Caracteristicas.Salud <= 0)
+        //     {
+        //         indiceUsuario++;
+        //         primeraVueltaUsuario = 0;
+        //     }
 
-            if (personajeAleatorio.Caracteristicas.Salud <= 0)
-            {
-                indiceAleatorio++;
-                primeraVueltaAleatorio = 0;
-            }
-        }
+        //     if (personajeAleatorio.Caracteristicas.Salud <= 0)
+        //     {
+        //         indiceAleatorio++;
+        //         primeraVueltaAleatorio = 0;
+        //     }
+        // }
 
-        //mensajes al finalizar el  combate
-        Personaje ganador = null;
-        if (indiceUsuario >= personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
-        {
-            Console.WriteLine("\n¡Los personajes aleatorios han ganado el combate!");
-            ganador = personajesAleatorios[indiceAleatorio];
-        }
-        else if (indiceAleatorio >= personajesAleatorios.Count && indiceUsuario < personajesUsuario.Count)
-        {
-            Console.WriteLine("\n¡Los personajes del usuario han ganado el combate!");
-            ganador = personajesUsuario[indiceUsuario];
-        }
-        else
-        {
-            Console.WriteLine("\nNo hay un ganador definitivo.");
-        }
+        //ganador del combate
+        
+        GanadorDelCombate(personajesUsuario, personajesAleatorios, ganador);
+        // Personaje ganador = null;
+        // if (indiceUsuario >= personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
+        // {
+        //     Console.WriteLine("\n¡Los personajes aleatorios han ganado el combate!");
+        //     ganador = personajesAleatorios[indiceAleatorio];
+        // }
+        // else if (indiceAleatorio >= personajesAleatorios.Count && indiceUsuario < personajesUsuario.Count)
+        // {
+        //     Console.WriteLine("\n¡Los personajes del usuario han ganado el combate!");
+        //     ganador = personajesUsuario[indiceUsuario];
+        // }
+        // else
+        // {
+        //     Console.WriteLine("\nNo hay un ganador definitivo.");
+        // }
 
-        if (ganador != null)
-        {
-            MensajeGanador(ganador);
+        // if (ganador != null)
+        // {
+        //     MensajeGanador(ganador);
 
-            //solicitud de guardado o no guardado
-            Console.Write("\n¿Desea guardar al ganador en el historial? (s para si): ");
-            string respuesta = Console.ReadLine().ToLower();
-            if (respuesta == "s")
-            {
-                historialJson.GuardarGanador(ganador, archivoHistorialJson);
-                Console.WriteLine("Ganador guardado en el historial");
-            }
-        }
+        //     //solicitud de guardado o no guardado
+        //     Console.Write("\n¿Desea guardar al ganador en el historial? (s para si): ");
+        //     string respuesta = Console.ReadLine().ToLower();
+        //     if (respuesta == "s")
+        //     {
+        //         historialJson.GuardarGanador(ganador, archivoHistorialJson);
+        //         Console.WriteLine("Ganador guardado en el historial");
+        //     }
+        // }
         //restableciendo salud
         RestablecerSalud(personajesExistentes);
         personajeJson.GuardarPersonajes(personajesExistentes, archivoPersonajeJson);
 
-        //mostrar personajes con mas victorias
-        var topDosPersonajes = historialJson.ObtenerDosPersonajesMasVictoriosos(archivoHistorialJson);
-        Console.WriteLine("\nLos 2 personajes con más victorias:");
+        // //mostrar personajes con mas victorias
+        // var topDosPersonajes = historialJson.ObtenerDosPersonajesMasVictoriosos(archivoHistorialJson);
+        // Console.WriteLine("\nLos 2 personajes con más victorias:");
 
-        if (topDosPersonajes.Count == 0)
-        {
-            Console.WriteLine("No hay victorias registradas");
-        }
-        else
-        {
-            foreach (var personaje in topDosPersonajes)
-            {
-                Console.WriteLine($"Nombre: {personaje.Datos.Nombre} | Tipo: {personaje.Datos.Tipo} | Victorias: {personaje.Victorias}");
-            }
-        }
-
-        Console.WriteLine("\n----------------------------------------------------\n");
+        // if (topDosPersonajes.Count == 0)
+        // {
+        //     Console.WriteLine("No hay victorias registradas");
+        // }
+        // else
+        // {
+        //     foreach (var personaje in topDosPersonajes)
+        //     {
+        //         Console.WriteLine($"Nombre: {personaje.Datos.Nombre} | Tipo: {personaje.Datos.Tipo} | Victorias: {personaje.Victorias}");
+        //     }
+        // }
+        //personajes con mas victorias
+        PersonajesConMasVictorias();
+        // Console.WriteLine("\n----------------------------------------------------\n");
         
     }
 
@@ -303,6 +318,87 @@ class Principal
         Console.WriteLine("* Hechicero");
         Console.WriteLine("* Bruja");
         Console.WriteLine();
+    }
+    //generando personajes
+    private List<Personaje> GenerarPersonajesUsuario(List<Personaje> personajesExistentes)
+    {
+        List<Personaje> personajesUsuario = new List<Personaje>();
+        for (int i = 0; i < NUMERO_PERSONAJES; i++)
+        {
+            TipoPersonaje tipoElegido;
+
+            while (true)
+            {
+                MenuPersonaje();
+
+                var elegido = Console.ReadLine();
+                if (!int.TryParse(elegido, out _) && Enum.TryParse<TipoPersonaje>(elegido, true, out tipoElegido))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Tipo de personaje incorrecto, ingrese otra vez");
+                }
+            }
+
+            Personaje personajeUsuario = personajesExistentes.Find(p => p.Datos.Tipo == tipoElegido);
+            if (personajeUsuario == null)
+            {
+                personajeUsuario = fabrica.GenerarPersonajeAleatorio(tipoElegido);
+                personajesExistentes.Add(personajeUsuario);
+            }
+
+            personajesUsuario.Add(personajeUsuario);
+        }
+
+        return personajesUsuario;
+    }
+
+    private List<Personaje> GenerarPersonajesAleatorios(List<Personaje> personajesExistentes)
+    {
+        List<Personaje> personajesAleatorios = new List<Personaje>();
+        Console.WriteLine("\nGenerando Personaje Aleatorio");
+        Thread.Sleep(2000);
+        Console.WriteLine("\nCargando Personajes");
+        Thread.Sleep(2000);
+
+        for (int i = 0; i < NUMERO_PERSONAJES; i++)
+        {
+            TipoPersonaje tipoAleatorio;
+            Personaje personajeAleatorio = null;
+
+            do
+            {
+                tipoAleatorio = (TipoPersonaje)random.Next(Enum.GetValues(typeof(TipoPersonaje)).Length);
+                personajeAleatorio = personajesExistentes.Find(p => p.Datos.Tipo == tipoAleatorio);
+                if (personajeAleatorio == null)
+                {
+                    personajeAleatorio = fabrica.GenerarPersonajeAleatorio(tipoAleatorio);
+                    personajesExistentes.Add(personajeAleatorio);
+                }
+            } while (personajeAleatorio == null);
+
+            personajesAleatorios.Add(personajeAleatorio);
+        }
+
+        return personajesAleatorios;
+    }
+
+    //personajes a combatir
+    private void PersonajeACombatir(List<Personaje> personajesUsuario, List<Personaje> personajesAleatorios)
+    {
+        Console.WriteLine("\nPersonajes a Combatir");
+        Thread.Sleep(2000);
+        foreach (var personaje in personajesUsuario)
+        {
+            MostrarDatosPersonaje("usuario", personaje, personaje.Datos.Tipo);
+        }
+
+        foreach (var personaje in personajesAleatorios)
+        {
+            MostrarDatosPersonaje("aleatorio", personaje, personaje.Datos.Tipo);
+        }
     }
     private void MostrarDatosPersonaje(string tipo, Personaje personaje, TipoPersonaje tipoPersonaje)
     {
@@ -355,6 +451,92 @@ class Principal
         {
             return climaIngles;
         }
+    }
+    //simulando combate
+    private Personaje RealizarCombate(List<Personaje> personajesUsuario, List<Personaje> personajesAleatorios, string estadoDelClima, int amanecer, int atardecer)
+    {
+        int primeraVueltaUsuario = 0;
+        int primeraVueltaAleatorio = 0;
+
+        Console.WriteLine("\nComienza el combate!");
+        Thread.Sleep(3000);
+        Console.WriteLine("\n----------------------------------------------------\n");
+
+        int indiceUsuario = 0;
+        int indiceAleatorio = 0;
+
+        while (indiceUsuario < personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
+        {
+            var personajeUsuario = personajesUsuario[indiceUsuario];
+            var personajeAleatorio = personajesAleatorios[indiceAleatorio];
+
+            while (personajeUsuario.Caracteristicas.Salud > 0 && personajeAleatorio.Caracteristicas.Salud > 0)
+            {
+                int danioUsuario = Ataque(personajeUsuario, personajeAleatorio, amanecer, atardecer, estadoDelClima, ref primeraVueltaUsuario);
+                personajeAleatorio.Caracteristicas.Salud -= danioUsuario;
+
+                if (personajeAleatorio.Caracteristicas.Salud <= 0)
+                {
+                    Console.WriteLine($"\n{personajeAleatorio.Datos.Nombre} ha sido derrotado!");
+                    Bono(personajeUsuario);
+                    break;
+                }
+
+                int danioAleatorio = Ataque(personajeAleatorio, personajeUsuario, amanecer, atardecer, estadoDelClima, ref primeraVueltaAleatorio);
+                personajeUsuario.Caracteristicas.Salud -= danioAleatorio;
+
+                if (personajeUsuario.Caracteristicas.Salud <= 0)
+                {
+                    Console.WriteLine($"\n{personajeUsuario.Datos.Nombre} ha sido derrotado!");
+                    Bono(personajeAleatorio);
+                    break;
+                }
+            }
+
+            if (personajeUsuario.Caracteristicas.Salud <= 0)
+            {
+                indiceUsuario++;
+                primeraVueltaUsuario = 0;
+            }
+
+            if (personajeAleatorio.Caracteristicas.Salud <= 0)
+            {
+                indiceAleatorio++;
+                primeraVueltaAleatorio = 0;
+            }
+        }
+
+        if (indiceUsuario >= personajesUsuario.Count && indiceAleatorio < personajesAleatorios.Count)
+        {
+            Console.WriteLine("\n¡Los personajes aleatorios han ganado el combate!");
+            return personajesAleatorios[indiceAleatorio];
+        }
+        else if (indiceAleatorio >= personajesAleatorios.Count && indiceUsuario < personajesUsuario.Count)
+        {
+            Console.WriteLine("\n¡Los personajes del usuario han ganado el combate!");
+            return personajesUsuario[indiceUsuario];
+        }
+        else
+        {
+            Console.WriteLine("\nNo hay un ganador definitivo.");
+            return null;
+        }
+    }
+
+    private int Ataque(Personaje atacante, Personaje defensor, int amanecer, int atardecer, string estadoDelClima, ref int primeraVuelta)
+    {
+        int puntosBeneficio = PuntosBeneficio(atacante, amanecer, atardecer, estadoDelClima);
+        int danio = CalcularDanio(atacante, defensor);
+
+        if (puntosBeneficio > 0 && primeraVuelta == 0)
+        {
+            danio += puntosBeneficio;
+            Console.WriteLine($"Al guerrero {atacante.Datos.Nombre} se le dio un beneficio por {puntosBeneficio} puntos por estado del clima");
+            primeraVuelta++;
+        }
+
+        Console.WriteLine($"{atacante.Datos.Nombre} ataca a {defensor.Datos.Nombre} y le inflige {danio} puntos de daño");
+        return danio;
     }
     private int CalcularDanio(Personaje guerreroAtacante, Personaje guerreroDefensor)
     {
@@ -434,6 +616,23 @@ class Principal
         personajeJson.ActualizarPersonaje(ganador, archivoPersonajeJson);
     }
 
+    //ganador del combate
+    private void GanadorDelCombate(List<Personaje> personajesUsuario, List<Personaje> personajesAleatorios, Personaje ganador)
+    {
+        if (ganador != null)
+        {
+            MensajeGanador(ganador);
+
+            Console.Write("\n¿Desea guardar al ganador en el historial? (s para si): ");
+            string respuesta = Console.ReadLine().ToLower();
+            if (respuesta == "s")
+            {
+                HistorialJson historialJson = new HistorialJson();
+                historialJson.GuardarGanador(ganador, archivoHistorialJson);
+                Console.WriteLine("Ganador guardado en el historial");
+            }
+        }
+    }
     //mensaje al ganador
     private void MensajeGanador(Personaje ganador)
     {
@@ -450,6 +649,27 @@ class Principal
         {
             personaje.Caracteristicas.Salud = 100;
         }
+    }
+
+    private void PersonajesConMasVictorias()
+    {
+        HistorialJson historialJson = new HistorialJson();
+        var topDosPersonajes = historialJson.ObtenerDosPersonajesMasVictoriosos(archivoHistorialJson);
+        Console.WriteLine("\nLos 2 personajes con más victorias:");
+
+        if (topDosPersonajes.Count == 0)
+        {
+            Console.WriteLine("No hay victorias registradas");
+        }
+        else
+        {
+            foreach (var personaje in topDosPersonajes)
+            {
+                Console.WriteLine($"Nombre: {personaje.Datos.Nombre} | Tipo: {personaje.Datos.Tipo} | Victorias: {personaje.Victorias}");
+            }
+        }
+
+        Console.WriteLine("\n----------------------------------------------------\n");
     }
 
 }
