@@ -29,9 +29,9 @@
     "Caracteristicas": {
       "Velocidad": 2,
       "Destreza": 1,
-      "Fuerza": 6,
+      "Fuerza": 10,
       "Nivel": 8,
-      "Armadura": 4,
+      "Armadura": 10,
       "Salud": 100
     }
   },
@@ -67,7 +67,7 @@
       "Destreza": 3,
       "Fuerza": 10,
       "Nivel": 3,
-      "Armadura": 9,
+      "Armadura": 10,
       "Salud": 100
     }
   },

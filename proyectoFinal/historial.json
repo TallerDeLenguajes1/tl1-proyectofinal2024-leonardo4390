@@ -41,7 +41,7 @@
       "Edad": 68,
       "Beneficio": "Niebla"
     },
-    "Victorias": 1
+    "Victorias": 2
   },
   {
     "Datos": {
@@ -51,6 +51,17 @@
       "FechaDeNacimiento": "9 de julio de 259",
       "Edad": 279,
       "Beneficio": "Noche"
+    },
+    "Victorias": 5
+  },
+  {
+    "Datos": {
+      "Tipo": "Mago",
+      "Nombre": "Pyrus",
+      "Apodo": "El Ardiente Sabio",
+      "FechaDeNacimiento": "6 de septiembre de 277",
+      "Edad": 67,
+      "Beneficio": "Soleado"
     },
     "Victorias": 1
   }
