@@ -47,7 +47,7 @@ class Principal
         int amanecer=0;
         int atardecer=0;
         var estadoDelClima="";
-        if (clima != null && clima.weather != null && clima.weather.Length > 0)
+        if (ClimaValido(clima))
         {
             estadoDelClima = TraducirEstadoDelClima(clima.weather[0].main);
             var horaAmanecer = ConvertirUnixEnTiempoLocal(clima.sys.sunrise);
@@ -219,6 +219,11 @@ class Principal
         
     }
 
+    //validacion del estado del clima
+    private bool ClimaValido(Clima clima)
+    {
+        return clima?.weather?.Length > 0;
+    }
     private string TraducirEstadoDelClima(string climaIngles)
     {
         Dictionary<string, string> traducciones = new Dictionary<string, string>
@@ -427,7 +432,7 @@ class Principal
             {
                 HistorialJson historialJson = new HistorialJson();
                 historialJson.GuardarGanador(ganador, archivoHistorialJson);
-                Console.WriteLine("Ganador guardado en el historial");
+                Console.WriteLine("Ganador guardado con exito");
             }
         }
     }
@@ -452,16 +457,17 @@ class Principal
     private void PersonajesConMasVictorias()
     {
         HistorialJson historialJson = new HistorialJson();
-        var topDosPersonajes = historialJson.ObtenerDosPersonajesMasVictoriosos(archivoHistorialJson);
-        Console.WriteLine("\nLos personajes con mas victorias");
+        var personajesGanadores = historialJson.ObtenerPersonajesGanadores(archivoHistorialJson);
 
-        if (topDosPersonajes.Count == 0)
+        Console.WriteLine("\nPersonajes ganadores");
+
+        if (personajesGanadores.Count == 0)
         {
             Console.WriteLine("No hay victorias registradas");
         }
         else
         {
-            foreach (var personaje in topDosPersonajes)
+            foreach (var personaje in personajesGanadores)
             {
                 Console.WriteLine($"Nombre: {personaje.Datos.Nombre} | Tipo: {personaje.Datos.Tipo} | Victorias: {personaje.Victorias}");
             }
@@ -470,7 +476,10 @@ class Principal
         Console.WriteLine("\n----------------------------------------------------\n");
     }
 
+
 }
+
+
 
 
 

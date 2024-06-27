@@ -1,19 +1,20 @@
 using System;
 using System.Text.Json;
 using System.IO;
-
+using System.Linq;
 class HistorialJson
 {
     public void GuardarGanador(Personaje ganador, string nombreArchivo)
     {
         List<Ganador> historialGanador = LeerGanador(nombreArchivo);
-        var ganadorExistente = historialGanador.Find(g =>g.Datos.Tipo == ganador.Datos.Tipo);
+        var ganadorExistente = historialGanador.Find(g => g.Datos.Tipo == ganador.Datos.Tipo);
         
         if (ganadorExistente != null)
         {
-            ganadorExistente.Victorias ++;       
+            ganadorExistente.Victorias++;       
         }
-        else{
+        else
+        {
             var nuevoGanador = new Ganador(ganador.Datos);
             historialGanador.Add(nuevoGanador);
         }
@@ -22,8 +23,8 @@ class HistorialJson
         {
             WriteIndented = true,
         };
-        string json = JsonSerializer.Serialize(historialGanador,opcionSerializacion);
-        File.WriteAllText(nombreArchivo,json);
+        string json = JsonSerializer.Serialize(historialGanador, opcionSerializacion);
+        File.WriteAllText(nombreArchivo, json);
     }
 
     public List<Ganador> LeerGanador(string nombreArchivo)
@@ -33,7 +34,8 @@ class HistorialJson
             string json = File.ReadAllText(nombreArchivo);
             return JsonSerializer.Deserialize<List<Ganador>>(json);
         }
-        else{
+        else
+        {
             Console.WriteLine("No existe el archivo");
             return new List<Ganador>();
         }
@@ -43,43 +45,9 @@ class HistorialJson
     {
         return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
     }
-    //obtener Victorias
-    public Datos ObtenerPersonajeMasVictorioso(string nombreArchivo)
-    {
-        List<Ganador> historial = LeerGanador(nombreArchivo);
-        bool perosonajeMasVictorioso = Existe(nombreArchivo);
 
-        if (perosonajeMasVictorioso)
-        {
-            //ordenar historial por victorias forma descendente
-            historial.Sort((x, y) => y.Victorias.CompareTo(x.Victorias));
-
-            // elprimer elemento del historial tiene más victorias
-            return historial[0].Datos;
-            
-        }else{
-            Console.WriteLine("No hay registros de victorias.");
-            return null;
-        }
-
-        
-    }
-
-    public int ObtenerNumerosVictorias(string personaje, string nombreArchivo)
-    {
-        List<Ganador> historial = LeerGanador(nombreArchivo);
-        var batalla = historial.Find(b => b.Datos.Nombre == personaje);
-        if (batalla != null)
-        {
-            return batalla.Victorias;
-        }else{
-            Console.WriteLine($"El personaje {personaje} No tiene victorias registradas");
-            return 0;
-        }
-    }
-
-    //dos personajes con más victorias
-    public List<(Datos Datos, int Victorias)> ObtenerDosPersonajesMasVictoriosos(string nombreArchivo)
+    //personajes ganadores en forma descendente
+    public List<(Datos Datos, int Victorias)> ObtenerPersonajesGanadores(string nombreArchivo)
     {
         List<Ganador> historial = LeerGanador(nombreArchivo);
         if (historial == null || historial.Count == 0)
@@ -87,12 +55,12 @@ class HistorialJson
             return new List<(Datos Datos, int Victorias)>();
         }
 
-        //ordenar victorias descendente solo los primeros dos
-        var topDos = historial.OrderByDescending(g => g.Victorias).Take(2)
-                              .Select(g => (g.Datos, g.Victorias))
-                              .ToList();
+        //victorias en forma descendente
+        var personajesGanadores = historial.OrderByDescending(g => g.Victorias)
+                                           .Select(g => (g.Datos, g.Victorias))
+                                           .ToList();
 
-        return topDos;
+        return personajesGanadores;
     }
 }
 
