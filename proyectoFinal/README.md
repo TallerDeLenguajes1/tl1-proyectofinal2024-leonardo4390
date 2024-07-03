@@ -6,7 +6,7 @@
 Es un Juego épico, donde los climas y estado del día se alzan como poderosos aliados o formidables adversarios. En este juego los personajes son seres míticos que personifican los diferentees estados del clima y estado del dia. Cada uno tiene habilidades únicas basados en su clima o estado del dia asociado.
 
 ### Jugabilidad Descripción
-El juego consiste en un combate de equipo de  dos contra dos, donde el usuario deberá elegir sus personajes a su preferencia y el adversario será elegido aleatoriamente. Las características de los personajes(Fuerza, Velocidad, Armadura,Destreza,Nivel) tanto para el usuario como para el adversario será creado de forma aleatoria. Para asegurar paridad la salud inicialmente sera  para todos en 100. La batalla será por turnos, uno ataca y el otro defiende hasta que la salud total de uno de los equipos ellos termine en 0  o menor. La forma de calcular el daño provocado en cada turno es la siguiente:
+El juego consiste en un combate de 2 equipo con un máximo de 8 personajes cada uno, donde el usuario deberá elegir sus personajes a su preferencia y el adversario será elegido aleatoriamente. Las características de los personajes(Fuerza, Velocidad, Armadura,Destreza,Nivel) tanto para el usuario como para el adversario será creado de forma aleatoria. Para asegurar paridad la salud inicialmente será para todos en 100. La batalla será por turnos, uno ataca y el otro defiende hasta que la salud total de uno de los equipos o ellos termine en 0  o menor. La forma de calcular el daño provocado en cada turno es la siguiente:
 
 • Ataque: Destreza * Fuerza * Nivel (del personaje que ataca)
 • Efectividad: Valor aleatorio entre 1 y 100.
@@ -93,6 +93,10 @@ En la batalla si el clima o estado del dia coincide con el beneficio asociado al
    **Descripción**: En la batalla, Mistralia es una maestra de la ilusión. Sus enemigos ven sombras que no pueden tocar y escuchan susurros que los confunden. Su risa es como el viento que se desliza entre los árboles.
 
 ### Iniciativa del Juego
-La idea surge de implementar un poco del gusto de personajes miticos y juegos de la actualidad que aprovechan el estado del tiempo o la hora del día, me pareció adecuado aprovechar esas ideas e implementarlo a este proyecto de combate, sin nada mas que decir.
+La idea surge de implementar un poco del gusto de personajes miticos y juegos de la actualidad que aprovechan el estado del tiempo o la hora del día, me pareció adecuado aprovechar esas ideas e implementarlo a este proyecto de combate.
+
+### Implementacion en el juego
+Para el juego desarrollado y la implementacion del estado del clima y estado del dia se usó la API: https://api.openweathermap.org
+En este juego se trató de utilizar un diseño modular asegurando que el juego sea facil de entender, mantener y extender.
 
 **Prepárate para explorar un mundo donde los climas y estado del dia cobran vida y los mitos se entrelazan con la naturaleza!**

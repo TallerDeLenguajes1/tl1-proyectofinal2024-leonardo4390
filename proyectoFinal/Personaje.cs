@@ -15,12 +15,12 @@ public enum TipoPersonaje
 }
 public class Personaje
 {
-    public Datos Datos{get;set;}
-    public Caracteristicas Caracteristicas{get;set;}
+    public Datos Datos{get;private set;}
+    public Caracteristicas Caracteristicas{get;private set;}
 
 
     //constructor para el personaje
-    public Personaje(){}
+    //public Personaje(){}
     
     public Personaje(Datos datos, Caracteristicas caracteristicas)
     {

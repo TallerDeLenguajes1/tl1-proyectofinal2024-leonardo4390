@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-
 class Principal
 {
     
@@ -14,12 +13,7 @@ class Principal
 
     public async Task Menu()
     {
-        //TipoPersonaje tipoElegido;
-        //FabricaDePersonajes fabrica = new FabricaDePersonajes();
-        //PersonajeJson personajeJson = new PersonajeJson();
-        //HistorialJson historialJson = new HistorialJson();
         ConsumoAPI climaAPI = new ConsumoAPI();
-        //Random random = new Random();
         
         MostrarTitulo();
         MostrarSubtitulo();
@@ -41,9 +35,7 @@ class Principal
 
         //obtener el estado del tiempo
         Clima clima = await climaAPI.ObtenerEstadoTiempo();
-        //obtener la hora de salida del sol y puesta de sol (en UTC)
-        //amanecar
-        //obtener la hora de salida del sol y puesta de sol (en UTC)
+
         int amanecer=0;
         int atardecer=0;
         var estadoDelClima="";
@@ -343,7 +335,7 @@ class Principal
     }
     private int CalcularDanio(Personaje guerreroAtacante, Personaje guerreroDefensor)
     {
-        Random random = new Random();
+        //Random random = new Random();
         int ataque = guerreroAtacante.Caracteristicas.Destreza * guerreroAtacante.Caracteristicas.Fuerza * guerreroAtacante.Caracteristicas.Nivel;
         int efectividad = random.Next(1, 101);
         int defensa = guerreroDefensor.Caracteristicas.Armadura * guerreroDefensor.Caracteristicas.Velocidad;
@@ -362,7 +354,7 @@ class Principal
     //calcular puntos beneficio
     private int PuntosBeneficio(Personaje personaje,int horaAmanecer, int horaAtardecer,string estadoClima)
     {
-        Random random = new Random();
+        //Random random = new Random();
         DateTime hora = DateTime.Now;
         int actualHora = Convert.ToInt32(hora.ToString("HH"));
         int puntosBeneficios=0;
@@ -396,7 +388,7 @@ class Principal
     //otorgar bono
     private void Bono(Personaje ganador)
     {
-        Random random = new Random();
+        //Random random = new Random();
         int bono = random.Next(2) == 0 ? 5 : 10;
         if (random.Next(2) == 0)
         {
@@ -478,14 +470,3 @@ class Principal
 
 
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -7,10 +7,7 @@ class PersonajeJson
     public void GuardarPersonajes(List<Personaje> personajes, string nombreArchivo)
     {
         // JsonSerializerOption lo uso para tener una mejor impresion cuando serializo por writeIndented
-        var opcionSerializacion = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-        };
+        var opcionSerializacion = new JsonSerializerOptions{WriteIndented = true,};
         
         string json = JsonSerializer.Serialize(personajes, opcionSerializacion);
         File.WriteAllText(nombreArchivo, json);
@@ -21,9 +18,9 @@ class PersonajeJson
         if (File.Exists(nombreArchivo))
         {
             string json = File.ReadAllText(nombreArchivo);
-            var opcionesDeserializacion = new JsonSerializerOptions{};
+            //var opcionesDeserializacion = new JsonSerializerOptions{};
 
-            return JsonSerializer.Deserialize<List<Personaje>>(json, opcionesDeserializacion);
+            return JsonSerializer.Deserialize<List<Personaje>>(json);//, opcionesDeserializacion);
         }
         else
         {
@@ -37,12 +34,12 @@ class PersonajeJson
         return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
     }
 
-    public void AgregarPersonajes(List<Personaje> nuevosPersonajes, string nombreArchivo)
-    {
-        List<Personaje> personajesExistentes = LeerPersonajes(nombreArchivo);
-        personajesExistentes.AddRange(nuevosPersonajes);
-        GuardarPersonajes(personajesExistentes, nombreArchivo);
-    }
+    // public void AgregarPersonajes(List<Personaje> nuevosPersonajes, string nombreArchivo)
+    // {
+    //     List<Personaje> personajesExistentes = LeerPersonajes(nombreArchivo);
+    //     personajesExistentes.AddRange(nuevosPersonajes);
+    //     GuardarPersonajes(personajesExistentes, nombreArchivo);
+    // }
     public void ActualizarPersonaje(Personaje personajeGanador, string nombreArchivo)
     {
         List<Personaje> personajes = LeerPersonajes(nombreArchivo);

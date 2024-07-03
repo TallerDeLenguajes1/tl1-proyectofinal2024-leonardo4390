@@ -14,7 +14,6 @@ class FabricaDePersonajes
         return fechaNacimiento;
     }
 
-    //personajes aleatorios
     public Personaje GenerarPersonajeAleatorio(TipoPersonaje tipo)
     {
         Random random = new Random();
@@ -48,7 +47,7 @@ class FabricaDePersonajes
             case TipoPersonaje.Barbaro:
                 nombre = "Grom";
                 apodo = "El Devorador del Sol";
-                beneficio = "Nublado";//despejado 
+                beneficio = "Soleado";//despejado 
                 break;
             case TipoPersonaje.Asesino:
                 nombre = "Lurker";
@@ -67,13 +66,10 @@ class FabricaDePersonajes
                 break;
         }
 
-        //fecha de nacimiento aleatoria como datetime
         DateTime fechaNacimiento = GenerarFechaNacimiento(random);
         //formatendo fecha deseada
         string fechaFormateda = $"{fechaNacimiento.Day} de {fechaNacimiento.ToString("MMMM")} de {fechaNacimiento.Year}";
 
-
-        //datos del personaje
         Datos datos = new Datos
         {
             Tipo = tipo,
@@ -84,7 +80,6 @@ class FabricaDePersonajes
             Beneficio = beneficio
         };
 
-        //caracteristicas del personaje
         Caracteristicas caracteristicas = new Caracteristicas();
         {
             caracteristicas.Velocidad = random.Next(1, 11);
@@ -97,7 +92,7 @@ class FabricaDePersonajes
         
           
 
-        //creando una instancia del personajes con sus datos
+        //creando una instancia del personajes con sus datos y caracteristicas
         return new Personaje(datos, caracteristicas);
     }
 }
